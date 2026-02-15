@@ -1,87 +1,277 @@
+import { useRef, useEffect } from "react";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─── Solution Data ─── */
 const solutions = [
   {
+    number: "01",
     title: "Madeiras para Construção",
-    description: "Qualidade estrutural para todas as etapas da obra. Fornecemos madeiras certificadas com a melhor relação custo-benefício.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    description:
+      "Qualidade estrutural para todas as etapas da obra. Fornecemos madeiras certificadas com a melhor relação custo-benefício, direto dos melhores produtores do país.",
+    image: "https://images.unsplash.com/photo-1520869562399-e772f042f422?w=1200&q=80",
     features: ["Eucalipto tratado", "Pinus serrado", "Madeira de lei"],
   },
   {
+    number: "02",
     title: "Concreto Usinado",
-    description: "Entrega programada com precisão logística. Parcerias com as melhores usinas para garantir qualidade e pontualidade.",
-    image: "https://images.unsplash.com/photo-1590767950092-42b8362368da?w=600&q=80",
+    description:
+      "Entrega programada com precisão logística absoluta. Nossas parcerias estratégicas com as melhores usinas garantem qualidade constante e pontualidade.",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80",
     features: ["Bombeável", "Convencional", "Especial"],
   },
   {
-    title: "Compensados",
-    description: "Plastificados, resinados, estruturais e especiais. Variedade completa para cada necessidade do seu projeto.",
-    image: "https://images.unsplash.com/photo-1558346547-4439467bd1d5?w=600&q=80",
+    number: "03",
+    title: "Compensados Especiais",
+    description:
+      "Plastificados, resinados, estruturais e navais. Variedade completa para cada necessidade e fase do seu projeto, com garantia de procedência.",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
     features: ["Plastificado", "Resinado", "Naval"],
   },
 ];
 
-const Solutions = () => {
-  return (
-    <section id="solucoes" className="py-24 lg:py-32">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider mb-4 block">
-            Nossas Soluções
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Materiais de qualidade para sua obra
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Representamos os melhores fornecedores do mercado, garantindo qualidade, preço e pontualidade.
-          </p>
-        </div>
+/* ─── Component ─── */
+export default function Solutions() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
-        {/* Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {solutions.map((solution, index) => (
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+
+    const ctx = gsap.context(() => {
+      /* ── Header entrance ── */
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      /* ── Horizontal scroll ── */
+      const panels = gsap.utils.toArray<HTMLElement>(".solution-panel");
+      const totalPanels = panels.length;
+
+      const scrollTween = gsap.to(panels, {
+        xPercent: -100 * (totalPanels - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 1,
+          snap: {
+            snapTo: 1 / (totalPanels - 1),
+            duration: { min: 0.2, max: 0.6 },
+            ease: "power2.inOut",
+          },
+          end: () => "+=" + (track.offsetWidth - window.innerWidth),
+          invalidateOnRefresh: true,
+        },
+      });
+
+      /* ── Progress bar ── */
+      if (progressRef.current) {
+        gsap.to(progressRef.current, {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => "+=" + (track.offsetWidth - window.innerWidth),
+            scrub: 1,
+          },
+        });
+      }
+
+      /* ── Per-panel content reveal ── */
+      panels.forEach((panel) => {
+        const content = panel.querySelector("[data-content]");
+        if (!content) return;
+
+        gsap.fromTo(
+          content.children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: scrollTween,
+              start: "left 70%",
+              once: true,
+            },
+          }
+        );
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="solucoes"
+      className="relative overflow-hidden h-screen flex flex-col"
+    >
+      {/* ── Video Overlay (video is fixed from hero, we just add a dark tint) ── */}
+      <div className="absolute inset-0 bg-black/60 z-0" />
+
+      {/* ── Header ── */}
+      <div className="relative z-20 pt-10 md:pt-14 pb-6 md:pb-8 px-6 lg:px-12 flex-shrink-0">
+        <div ref={headerRef} className="max-w-5xl mx-auto">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#F39200] mb-4">
+            Soluções
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-bold leading-[1.12] tracking-[-0.03em] text-white">
+            Materiais que movem{" "}
+            <span className="text-[#F39200]">sua obra</span>
+          </h2>
+        </div>
+      </div>
+
+      {/* ── Progress Bar ── */}
+      <div className="relative z-20 mx-6 lg:mx-12 mb-4 flex-shrink-0">
+        <div className="max-w-5xl mx-auto">
+          <div className="h-[2px] bg-white/10 rounded-full overflow-hidden">
             <div
-              key={index}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card hover-lift cursor-pointer"
-            >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={solution.image}
-                  alt={solution.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+              ref={progressRef}
+              className="h-full bg-[#F39200] origin-left rounded-full"
+              style={{ transform: "scaleX(0)" }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Horizontal Track ── */}
+      <div
+        ref={trackRef}
+        className="relative z-10 flex flex-1 min-h-0"
+        style={{ width: `${solutions.length * 100}vw` }}
+      >
+        {solutions.map((solution, index) => (
+          <div
+            key={index}
+            className="solution-panel relative flex-shrink-0 w-screen h-full px-6 lg:px-12 pb-8 md:pb-12"
+          >
+            <div className="relative max-w-5xl mx-auto h-full rounded-2xl overflow-hidden border border-white/[0.08] backdrop-blur-sm bg-white/[0.03]">
+              {/* ── Card Layout ── */}
+              <div className="flex h-full">
+                {/* Image Side */}
+                <div className="relative w-full md:w-[50%] flex-shrink-0 overflow-hidden">
+                  <img
+                    src={solution.image}
+                    alt={solution.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
+                  />
+                  {/* Gradient blending into content side */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/80 hidden md:block" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+                  {/* Large number */}
+                  <span className="absolute bottom-4 left-6 text-[7rem] md:text-[9rem] font-black leading-none text-white/[0.08] tracking-tighter select-none pointer-events-none">
+                    {solution.number}
+                  </span>
+                </div>
+
+                {/* Content Side (desktop) */}
+                <div className="hidden md:flex w-[50%] items-center bg-black/40 backdrop-blur-md">
+                  <div
+                    data-content
+                    className="px-10 lg:px-14 py-10 flex flex-col justify-center"
+                  >
+                    <h3 className="text-2xl lg:text-[1.75rem] font-bold text-white tracking-[-0.02em] leading-tight mb-4">
+                      {solution.title}
+                    </h3>
+
+                    <p className="text-sm leading-relaxed text-white/50 mb-7 max-w-sm">
+                      {solution.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {solution.features.map((feature, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs px-3.5 py-1.5 rounded-full bg-white/[0.06] text-white/80 border border-white/10 font-medium backdrop-blur-sm"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div>
+                      <Button
+                        variant="outline"
+                        className="group/cta rounded-full border-white/15 bg-white/[0.05] text-white px-6 h-10 text-[13px] font-medium hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300"
+                      >
+                        Solicitar cotação
+                        <ArrowRightIcon className="size-3.5 ml-2 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {solution.title}
-                </h3>
-                
-                {/* Description - shows on hover */}
-                <div className="overflow-hidden transition-all duration-300 max-h-0 group-hover:max-h-40 opacity-0 group-hover:opacity-100">
-                  <p className="text-sm text-muted-foreground mb-4">
+              {/* ── Mobile Content Overlay ── */}
+              <div className="absolute inset-0 flex items-end md:hidden pointer-events-none">
+                <div
+                  data-content
+                  className="w-full p-6 pt-20 pointer-events-auto"
+                  style={{
+                    background: "linear-gradient(to top, rgba(0,0,0,0.85) 40%, transparent 100%)",
+                  }}
+                >
+                  <h3 className="text-xl font-bold text-white tracking-[-0.02em] leading-tight mb-3">
+                    {solution.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-white/50 mb-4">
                     {solution.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 mb-5">
                     {solution.features.map((feature, idx) => (
                       <span
                         key={idx}
-                        className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                        className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.06] text-white/80 border border-white/10 font-medium"
                       >
                         {feature}
                       </span>
                     ))}
                   </div>
+                  <Button
+                    variant="outline"
+                    className="group/cta rounded-full border-white/15 bg-white/[0.05] text-white px-5 h-9 text-xs font-medium hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                  >
+                    Solicitar cotação
+                    <ArrowRightIcon className="size-3 ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                  </Button>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
-};
-
-export default Solutions;
+}

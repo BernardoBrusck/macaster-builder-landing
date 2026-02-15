@@ -1,4 +1,3 @@
-import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import StatsStrip from "@/components/landing/StatsStrip";
 import Solutions from "@/components/landing/Solutions";
@@ -13,20 +12,23 @@ import WhatsAppButton from "@/components/landing/WhatsAppButton";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="min-h-screen">
       <main>
         <Hero />
-        <StatsStrip />
-        <Solutions />
-        <Methodology />
-        <Performance />
-        <Partners />
-        <Testimonial />
-        <Cases />
-        <CTASection />
+        <div className="relative z-10 bg-background">
+          <StatsStrip />
+          <Solutions />
+          <Methodology />
+          <Performance />
+          <Partners />
+          <Testimonial />
+          <Cases />
+          <CTASection />
+        </div>
       </main>
-      <Footer />
+      <div className="relative z-10 bg-background">
+        <Footer />
+      </div>
       <WhatsAppButton />
     </div>
   );

@@ -1,15 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Macaster Design System - Industrial Modern Aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Unbounded:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
     /* Macaster Color Palette */
-    --background: 217 58% 9%; /* #0B1221 - Azul Marinho Profundo */
-    --foreground: 210 40% 98%; /* #F8FAFC - Branco/Cinza Claro */
+    --background: 217 58% 9%;
+    /* #0B1221 - Azul Marinho Profundo */
+    --foreground: 210 40% 98%;
+    /* #F8FAFC - Branco/Cinza Claro */
 
     --card: 217 50% 12%;
     --card-foreground: 210 40% 98%;
@@ -17,7 +20,8 @@
     --popover: 217 50% 12%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 36 100% 48%; /* #F39200 - Laranja Industrial */
+    --primary: 36 100% 48%;
+    /* #F39200 - Laranja Industrial */
     --primary-foreground: 217 58% 9%;
 
     --secondary: 217 40% 18%;
@@ -72,11 +76,16 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Unbounded', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -113,4 +122,96 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Apple Typography - SF Pro System Font Stack */
+.apple-fonts,
+.apple-fonts * {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+.apple-fonts h1,
+.apple-fonts h2,
+.apple-fonts h3,
+.apple-fonts h4,
+.apple-fonts h5,
+.apple-fonts h6 {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+/* Premium Button Effects - scoped to /home via .apple-fonts */
+.apple-fonts button,
+.apple-fonts a[class*="button"] {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    filter 0.3s ease,
+    color 0.3s ease;
+}
+
+.apple-fonts button:hover,
+.apple-fonts a[class*="button"]:hover {
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: none;
+}
+
+.apple-fonts button::after,
+.apple-fonts a[class*="button"]::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.12) 45%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0.12) 55%,
+      transparent 70%);
+  transform: skewX(-20deg);
+  transition: none;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.apple-fonts button:hover::after,
+.apple-fonts a[class*="button"]:hover::after {
+  animation: btn-shine-sweep 0.6s ease-out forwards;
+}
+
+@keyframes btn-shine-sweep {
+  0% {
+    left: -75%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 125%;
+    opacity: 1;
+  }
+}
+
+
+/* Focus ring animation */
+.apple-fonts button:focus-visible,
+.apple-fonts a[class*="button"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(243, 146, 0, 0.5), 0 0 20px rgba(243, 146, 0, 0.2);
+}
+
+/* Ensure button content stays above the shine */
+.apple-fonts button>*,
+.apple-fonts a[class*="button"]>* {
+  position: relative;
+  z-index: 2;
 }
