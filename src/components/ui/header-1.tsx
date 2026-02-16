@@ -73,6 +73,17 @@ export function Header() {
         };
     }, [open]);
 
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        setOpen(false); // Close mobile menu if open
+    };
+
+    const whatsappLink = "https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20falar%20no%20WhatsApp.";
+
     return (
         <header
             className={cn(
@@ -88,7 +99,7 @@ export function Header() {
             } : undefined}
         >
             <nav className="mx-auto flex h-12 w-full max-w-5xl items-center justify-between px-4">
-                <a href="/home" className="hover:opacity-80 transition-opacity p-2">
+                <a href="/" className="hover:opacity-80 transition-opacity p-2">
                     <span className={cn(
                         "font-display text-lg font-bold tracking-wider transition-colors duration-500",
                         isLight ? "text-gray-900" : "text-white"
@@ -102,12 +113,13 @@ export function Header() {
                             key={link.label}
                             className={cn(
                                 buttonVariants({ variant: 'ghost' }),
-                                'transition-colors duration-500',
+                                'transition-colors duration-500 cursor-pointer',
                                 isLight
                                     ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                                     : ''
                             )}
                             href={link.href}
+                            onClick={(e) => handleScroll(e, link.href)}
                         >
                             {link.label}
                         </a>
@@ -120,9 +132,12 @@ export function Header() {
                                 ? "border border-gray-200 bg-gray-100/80 text-gray-700 hover:bg-gray-200/80"
                                 : "border border-white/[0.12] bg-white/[0.06] text-white"
                         )}
+                        asChild
                     >
-                        <PhoneCallIcon className="size-4 mr-2" />
-                        WhatsApp
+                        <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                            <PhoneCallIcon className="size-4 mr-2" />
+                            WhatsApp
+                        </a>
                     </Button>
                     <Button
                         className={cn(
@@ -131,6 +146,7 @@ export function Header() {
                                 ? "border-primary bg-primary text-white hover:border-primary/80"
                                 : "border-primary bg-primary hover:border-white/80"
                         )}
+                        onClick={(e) => handleScroll(e, '#contato')}
                     >
                         Cotar Agora
                     </Button>
@@ -157,19 +173,24 @@ export function Header() {
                             key={link.label}
                             className={buttonVariants({
                                 variant: 'ghost',
-                                className: 'justify-start',
+                                className: 'justify-start cursor-pointer',
                             })}
                             href={link.href}
+                            onClick={(e) => handleScroll(e, link.href)}
                         >
                             {link.label}
                         </a>
                     ))}
                 </div>
                 <div className="flex flex-col gap-2">
-                    <Button variant="outline" className="w-full bg-transparent border-white/20">
-                        WhatsApp
+                    <Button variant="outline" className="w-full bg-transparent border-white/20" asChild>
+                        <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                            WhatsApp
+                        </a>
                     </Button>
-                    <Button className="w-full">Cotar Agora</Button>
+                    <Button className="w-full" onClick={(e) => handleScroll(e, '#contato')}>
+                        Cotar Agora
+                    </Button>
                 </div>
             </MobileMenu>
         </header>

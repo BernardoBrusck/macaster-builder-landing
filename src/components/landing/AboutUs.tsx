@@ -24,63 +24,7 @@ function useCounter(end: number, suffix = "", trigger?: boolean) {
     return { ref, display: `${value}${suffix}` };
 }
 
-/* ─── Mouse Trail Component ─── */
-function MouseTrail() {
-    const trailRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            const trails = trailRef.current?.children;
-            if (!trails) return;
-
-            const moveTrail = (e: MouseEvent) => {
-                const { clientX, clientY } = e;
-                const section = trailRef.current?.parentElement;
-                if (!section) return;
-
-                const rect = section.getBoundingClientRect();
-                const x = clientX - rect.left;
-                const y = clientY - rect.top;
-
-                gsap.to(trails, {
-                    x: x,
-                    y: y,
-                    duration: 0.8,
-                    stagger: {
-                        each: 0.05,
-                        from: "start"
-                    },
-                    ease: "power2.out"
-                });
-            };
-
-            const parent = trailRef.current?.parentElement;
-            if (parent) {
-                parent.addEventListener("mousemove", moveTrail);
-            }
-
-            return () => {
-                if (parent) {
-                    parent.removeEventListener("mousemove", moveTrail);
-                }
-            };
-        }, trailRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    return (
-        <div ref={trailRef} className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-            {[...Array(5)].map((_, i) => (
-                <div
-                    key={i}
-                    className="absolute h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F39200]/15 blur-xl"
-                    style={{ left: 0, top: 0, opacity: 0.6 - i * 0.1, transform: 'scale(' + (1 - i * 0.15) + ')' }}
-                />
-            ))}
-        </div>
-    );
-}
+/* ─── Mouse Trail Component Removed (Moved to Global) ─── */
 
 /* ─── Spotlight Card Component ─── */
 function SpotlightCard({ icon: Icon, title, description }: { icon: any, title: string, description: string }) {
@@ -243,10 +187,10 @@ export default function AboutUs() {
                 if (img) {
                     gsap.fromTo(
                         img,
-                        { scale: 1.15, y: 20 }, // Increased scale to cover the movement
+                        { scale: 1.4, y: 0 },
                         {
-                            scale: 1.15, // Keep scale constant to avoid growing/shrinking feel
-                            y: -20,
+                            scale: 1.1,
+                            y: 0,
                             ease: "none",
                             scrollTrigger: {
                                 trigger: imageRef.current,
@@ -305,10 +249,11 @@ export default function AboutUs() {
     return (
         <section
             ref={sectionRef}
+            id="sobre"
             data-header-theme="light"
             className="relative z-10 overflow-hidden bg-white select-none"
         >
-            <MouseTrail />
+
 
             {/* ─── Subtle background decoration ─── */}
             <div className="pointer-events-none absolute inset-0">

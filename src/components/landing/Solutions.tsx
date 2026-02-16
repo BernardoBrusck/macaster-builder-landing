@@ -102,28 +102,66 @@ export default function Solutions() {
         });
       }
 
-      /* ── Per-panel content reveal ── */
+      /* ── Per-panel content and card reveal ── */
       panels.forEach((panel) => {
+        const card = panel.querySelector(".solution-card");
         const content = panel.querySelector("[data-content]");
-        if (!content) return;
+        const img = panel.querySelector("img");
 
-        gsap.fromTo(
-          content.children,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.08,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: scrollTween,
-              start: "left 70%",
-              once: true,
-            },
-          }
-        );
+        if (card) {
+          gsap.fromTo(card,
+            { clipPath: "inset(100% 0 0 0)" },
+            {
+              clipPath: "inset(0% 0 0 0)",
+              duration: 1.2,
+              ease: "power4.inOut",
+              scrollTrigger: {
+                trigger: panel,
+                containerAnimation: scrollTween,
+                start: "left 60%", // Trigger when panel enters viewport center
+                once: true,
+              }
+            }
+          );
+        }
+
+        if (img) {
+          gsap.fromTo(img,
+            { scale: 1.4 },
+            {
+              scale: 1.0,
+              duration: 1.4,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: panel,
+                containerAnimation: scrollTween,
+                start: "left 60%",
+                once: true,
+              }
+            }
+          );
+        }
+
+        if (content) {
+          gsap.fromTo(
+            content.children,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.08,
+              duration: 0.6,
+              delay: 0.4, // Wait for card reveal
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: panel,
+                containerAnimation: scrollTween,
+                start: "left 60%",
+                once: true,
+              },
+            }
+          );
+        }
       });
     }, section);
 
@@ -139,10 +177,11 @@ export default function Solutions() {
       {/* ── Video Overlay (video is fixed from hero, we just add a dark tint) ── */}
       <div className="absolute inset-0 bg-black/60 z-0" />
 
+
       {/* ── Header ── */}
       <div className="relative z-20 pt-10 md:pt-14 pb-6 md:pb-8 px-6 lg:px-12 flex-shrink-0">
         <div ref={headerRef} className="max-w-5xl mx-auto">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#F39200] mb-4">
+          <span className="inline-block border-b-4 border-[#F39200] pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#F39200] mb-4">
             Soluções
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-bold leading-[1.12] tracking-[-0.03em] text-white">
@@ -174,9 +213,9 @@ export default function Solutions() {
         {solutions.map((solution, index) => (
           <div
             key={index}
-            className="solution-panel relative flex-shrink-0 w-screen h-full px-6 lg:px-12 pb-8 md:pb-12"
+            className="solution-panel relative flex-shrink-0 w-screen h-full flex items-center justify-center px-6 lg:px-12 pb-12"
           >
-            <div className="relative max-w-5xl mx-auto h-full rounded-2xl overflow-hidden border border-white/[0.08] backdrop-blur-sm bg-white/[0.03]">
+            <div className="solution-card relative w-full max-w-[1200px] h-[55vh] min-h-[450px] max-h-[550px] mx-auto rounded-[15px] overflow-hidden border border-white/[0.08] backdrop-blur-md bg-white/[0.02] shadow-2xl">
               {/* ── Card Layout ── */}
               <div className="flex h-full">
                 {/* Image Side */}
@@ -187,34 +226,34 @@ export default function Solutions() {
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
                   />
                   {/* Gradient blending into content side */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/80 hidden md:block" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/60 hidden md:block" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Large number */}
-                  <span className="absolute bottom-4 left-6 text-[7rem] md:text-[9rem] font-black leading-none text-white/[0.08] tracking-tighter select-none pointer-events-none">
+                  <span className="absolute bottom-4 left-6 text-[6rem] md:text-[9rem] font-black leading-none text-white/[0.15] tracking-tighter select-none pointer-events-none z-10">
                     {solution.number}
                   </span>
                 </div>
 
                 {/* Content Side (desktop) */}
-                <div className="hidden md:flex w-[50%] items-center bg-black/40 backdrop-blur-md">
+                <div className="hidden md:flex w-[50%] items-center bg-white/[0.03] backdrop-blur-xl border-l border-white/[0.05]">
                   <div
                     data-content
-                    className="px-10 lg:px-14 py-10 flex flex-col justify-center"
+                    className="px-8 lg:px-16 py-8 flex flex-col justify-center h-full w-full"
                   >
-                    <h3 className="text-2xl lg:text-[1.75rem] font-bold text-white tracking-[-0.02em] leading-tight mb-4">
+                    <h3 className="text-2xl lg:text-4xl font-bold text-white tracking-[-0.03em] leading-[1.1] mb-5">
                       {solution.title}
                     </h3>
 
-                    <p className="text-sm leading-relaxed text-white/50 mb-7 max-w-sm">
+                    <p className="text-base leading-relaxed text-white/70 mb-8 max-w-md">
                       {solution.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mb-8">
+                    <div className="flex flex-wrap gap-2 mb-10">
                       {solution.features.map((feature, idx) => (
                         <span
                           key={idx}
-                          className="text-xs px-3.5 py-1.5 rounded-full bg-white/[0.06] text-white/80 border border-white/10 font-medium backdrop-blur-sm"
+                          className="text-xs px-3 py-1.5 rounded-full bg-white/[0.08] text-white/90 border border-white/10 font-medium backdrop-blur-sm shadow-sm"
                         >
                           {feature}
                         </span>
@@ -223,11 +262,20 @@ export default function Solutions() {
 
                     <div>
                       <Button
-                        variant="outline"
-                        className="group/cta rounded-full border-white/15 bg-white/[0.05] text-white px-6 h-10 text-[13px] font-medium hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300"
+                        variant="ghost"
+                        className="group/cta pl-0 hover:bg-transparent text-white text-sm font-semibold transition-all duration-300"
+                        asChild
                       >
-                        Solicitar cotação
-                        <ArrowRightIcon className="size-3.5 ml-2 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                        <a
+                          href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="border-b border-white/30 pb-0.5 group-hover/cta:border-[#F39200] group-hover/cta:text-[#F39200] transition-colors duration-300">
+                            Solicitar cotação
+                          </span>
+                          <ArrowRightIcon className="size-4 ml-2 text-[#F39200] transition-transform duration-300 group-hover/cta:translate-x-2" />
+                        </a>
                       </Button>
                     </div>
                   </div>
@@ -262,9 +310,16 @@ export default function Solutions() {
                   <Button
                     variant="outline"
                     className="group/cta rounded-full border-white/15 bg-white/[0.05] text-white px-5 h-9 text-xs font-medium hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                    asChild
                   >
-                    Solicitar cotação
-                    <ArrowRightIcon className="size-3 ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                    <a
+                      href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Solicitar cotação
+                      <ArrowRightIcon className="size-3 ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                    </a>
                   </Button>
                 </div>
               </div>

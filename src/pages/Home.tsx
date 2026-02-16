@@ -1,17 +1,27 @@
 import { HeroSection } from "@/components/ui/hero-1";
 import AboutUs from "@/components/landing/AboutUs";
 import Solutions from "@/components/landing/Solutions";
+import Methodology from "@/components/landing/Methodology";
+import Cases from "@/components/landing/Cases";
+import ContactCTA from "@/components/landing/ContactCTA";
+import Footer from "@/components/layout/Footer";
+import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
 export default function Home() {
     return (
-        <div className="apple-fonts flex w-full flex-col min-h-screen">
+        <div className="apple-fonts flex min-h-screen flex-col font-sans">
+            <SmoothScroll />
             <main className="grow">
                 <HeroSection />
                 <div className="relative z-10">
                     <AboutUs />
                     <Solutions />
+                    <Methodology />
+                    <Cases />
+                    <ContactCTA />
                 </div>
             </main>
+            <Footer />
         </div>
     );
 }

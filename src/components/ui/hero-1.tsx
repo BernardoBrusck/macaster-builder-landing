@@ -90,10 +90,20 @@ export function HeroSection() {
 
 
 
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const whatsappLink = "https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20falar%20no%20WhatsApp.";
+
     return (
         <section ref={sectionRef} className="relative w-full h-screen overflow-hidden flex flex-col">
             {/* Fixed Background Video */}
-            <div className="fixed inset-0 z-0">
+            <div className="fixed inset-0 z-0 pointer-events-none">
                 <video
                     autoPlay
                     loop
@@ -126,8 +136,9 @@ export function HeroSection() {
                     {/* Badge */}
                     <a
                         ref={badgeRef}
-                        className="group mx-auto flex w-fit items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] backdrop-blur-md px-3.5 py-1 opacity-0 transition-colors duration-300 hover:bg-white/[0.1] hover:border-white/[0.15]"
+                        className="group mx-auto flex w-fit items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] backdrop-blur-md px-3.5 py-1 opacity-0 transition-colors duration-300 hover:bg-white/[0.1] hover:border-white/[0.15] cursor-pointer relative z-30 pointer-events-auto"
                         href="#solucoes"
+                        onClick={(e) => handleScroll(e, '#solucoes')}
                     >
                         <HardHat className="size-3 text-primary" />
                         <span className="text-[11px] text-white/70 font-medium tracking-wide">fornecimento estratégico para sua obra</span>
@@ -159,7 +170,7 @@ export function HeroSection() {
                     </p>
 
                     {/* Buttons with Liquid Glass Effect */}
-                    <div ref={buttonsRef} className="flex flex-row flex-wrap items-center justify-center gap-3 pt-2 relative z-20">
+                    <div ref={buttonsRef} className="flex flex-row flex-wrap items-center justify-center gap-3 pt-2 relative z-30">
                         {/* Define Shimmer Animation & Filter locally */}
                         <style>{`
                             @keyframes shimmer {
@@ -171,54 +182,25 @@ export function HeroSection() {
                             }
                         `}</style>
 
-                        {/* SVG Filter for Button Refraction */}
-                        <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
-                            <defs>
-                                <filter id="hero-liquid">
-                                    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-                                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
-                                </filter>
-                            </defs>
-                        </svg>
-
-                        {/* Button 1: Transparent Liquid Glass (Default) */}
+                        {/* Button 1: WhatsApp */}
                         <Button
-                            className="group/btn relative overflow-hidden rounded-full border border-white/20 bg-transparent px-6 py-2.5 h-11 text-[13px] font-medium text-white opacity-0 transition-all duration-300 hover:scale-105 hover:bg-white/5 hover:border-white/40"
-                            size="lg"
+                            className="group/btn relative rounded-full border border-white/20 bg-transparent px-6 py-2.5 h-11 text-sm font-medium text-white transition-all duration-300 hover:bg-white/[0.1] hover:backdrop-blur-md hover:border-white/[0.15] hover:scale-105 pointer-events-auto"
                             variant="secondary"
+                            asChild
                         >
-                            {/* Liquid Layer (Always visible for transparent button) */}
-                            <div
-                                className="absolute inset-0 bg-white/5 backdrop-blur-[3px] -z-10"
-                                style={{ filter: 'url(#hero-liquid)' }}
-                            />
-
-                            {/* Shine Layer (On Hover) */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
-
-                            {/* Content */}
-                            <span className="relative z-10 flex items-center gap-2.5">
-                                <PhoneCallIcon className="size-4" />
-                                Falar no WhatsApp
-                            </span>
+                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                                <span className="flex items-center justify-center gap-2.5">
+                                    Falar no WhatsApp
+                                </span>
+                            </a>
                         </Button>
 
-                        {/* Button 2: Orange -> Liquid Glass (Hover) */}
+                        {/* Button 2: Cotar */}
                         <Button
-                            className="group/btn relative overflow-hidden rounded-full border border-primary bg-primary px-6 py-2.5 h-11 text-[13px] font-bold text-secondary-foreground opacity-0 transition-all duration-500 hover:bg-transparent hover:text-white hover:border-white/50"
-                            size="lg"
+                            className="group/btn relative rounded-full border border-primary bg-primary px-6 py-2.5 h-11 text-sm font-bold text-secondary-foreground transition-all duration-300 hover:bg-white/[0.1] hover:backdrop-blur-md hover:border-white/[0.15] hover:text-white pointer-events-auto"
+                            onClick={(e) => handleScroll(e, '#contato')}
                         >
-                            {/* Liquid Layer (Hidden Default, Visible Hover) */}
-                            <div
-                                className="absolute inset-0 bg-white/5 backdrop-blur-[3px] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 -z-10"
-                                style={{ filter: 'url(#hero-liquid)' }}
-                            />
-
-                            {/* Shine Layer (Running on Hover) */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
-
-                            {/* Content */}
-                            <span className="relative z-10 flex items-center gap-2.5">
+                            <span className="flex items-center justify-center gap-2.5">
                                 Cotar Materiais
                                 <ArrowRightIcon className="size-4" />
                             </span>
