@@ -1,6 +1,6 @@
 import Hero from "@/components/landing/Hero";
 import StatsStrip from "@/components/landing/StatsStrip";
-import Solutions from "@/components/landing/Solutions";
+
 import Methodology from "@/components/landing/Methodology";
 import Performance from "@/components/landing/Performance";
 import Partners from "@/components/landing/Partners";
@@ -17,7 +17,7 @@ const Index = () => {
         <Hero />
         <div className="relative z-10 bg-background">
           <StatsStrip />
-          <Solutions />
+          
           <Methodology />
           <Performance />
           <Partners />
