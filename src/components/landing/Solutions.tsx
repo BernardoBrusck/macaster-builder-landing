@@ -223,6 +223,10 @@ export default function Solutions() {
                   <img
                     src={solution.image}
                     alt={solution.title}
+                    loading="lazy"
+                    decoding="async"
+                    width="1200"
+                    height="800"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
                   />
                   {/* Gradient blending into content side */}

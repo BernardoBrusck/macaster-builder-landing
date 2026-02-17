@@ -109,6 +109,8 @@ export function HeroSection() {
                     loop
                     muted
                     playsInline
+                    preload="auto"
+                    poster="/madeiras.jpg"
                     className="w-full h-full object-cover"
                 >
                     <source src="/background-video.mp4" type="video/mp4" />
