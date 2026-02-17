@@ -114,8 +114,11 @@ export function HeroSection() {
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     onCanPlay={() => setVideoLoaded(true)}
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    aria-hidden="true"
                     className={cn(
                         "w-full h-full object-cover transition-opacity duration-1000",
                         videoLoaded ? "opacity-100" : "opacity-0"
