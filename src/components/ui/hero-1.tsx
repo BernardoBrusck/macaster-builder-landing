@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, PhoneCallIcon, HardHat } from "lucide-react";
@@ -7,6 +7,8 @@ import gsap from "gsap";
 
 export function HeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [videoLoaded, setVideoLoaded] = useState(false);
     const badgeRef = useRef<HTMLAnchorElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -104,19 +106,23 @@ export function HeroSection() {
         <section ref={sectionRef} className="relative w-full h-screen overflow-hidden flex flex-col">
             {/* Fixed Background Video */}
             <div className="fixed inset-0 z-0 pointer-events-none">
+                {/* Dark Overlay - always visible */}
+                <div className="absolute inset-0 bg-black/70 z-10" />
                 <video
+                    ref={videoRef}
                     autoPlay
                     loop
                     muted
                     playsInline
                     preload="auto"
-                    poster="/madeiras.jpg"
-                    className="w-full h-full object-cover"
+                    onCanPlay={() => setVideoLoaded(true)}
+                    className={cn(
+                        "w-full h-full object-cover transition-opacity duration-1000",
+                        videoLoaded ? "opacity-100" : "opacity-0"
+                    )}
                 >
                     <source src="/background-video.mp4" type="video/mp4" />
                 </video>
-                {/* Dark Overlay - pure black, no blue tint */}
-                <div className="absolute inset-0 bg-black/70" />
             </div>
 
             {/* Content wrapper */}
