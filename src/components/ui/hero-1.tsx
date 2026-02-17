@@ -64,13 +64,13 @@ export function HeroSection() {
                 );
             }
 
-            // Buttons slide up with stagger
+            // Buttons slide up with stagger - Faster entrance
             if (buttonsRef.current) {
                 tl.fromTo(
                     buttonsRef.current.children,
                     { opacity: 0, y: 40, scale: 0.9 },
-                    { opacity: 1, y: 0, scale: 1, stagger: 0.15, duration: 0.8, ease: "back.out(1.4)" },
-                    1.1
+                    { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.4)" },
+                    0.4
                 );
             }
 
@@ -79,8 +79,8 @@ export function HeroSection() {
                 tl.fromTo(
                     logosRef.current,
                     { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 1 },
-                    1.4
+                    { opacity: 1, y: 0, duration: 0.8 },
+                    0.7
                 );
             }
         }, sectionRef);
@@ -170,8 +170,8 @@ export function HeroSection() {
                     </p>
 
                     {/* Buttons with Liquid Glass Effect */}
-                    <div ref={buttonsRef} className="flex flex-row flex-wrap items-center justify-center gap-3 pt-2 relative z-30">
-                        {/* Define Shimmer Animation & Filter locally */}
+                    <div className="relative z-30 flex flex-row flex-wrap items-center justify-center gap-3 pt-2">
+                        {/* Define Shimmer Animation & Filter locally - moved out of ref container */}
                         <style>{`
                             @keyframes shimmer {
                                 0% { transform: translateX(-150%); }
@@ -182,29 +182,29 @@ export function HeroSection() {
                             }
                         `}</style>
 
-                        {/* Button 1: WhatsApp */}
-                        <Button
-                            className="group/btn relative rounded-full border border-white/20 bg-transparent px-6 py-2.5 h-11 text-sm font-medium text-white transition-all duration-300 hover:bg-white/[0.1] hover:backdrop-blur-md hover:border-white/[0.15] hover:scale-105 pointer-events-auto"
-                            variant="secondary"
-                            asChild
-                        >
-                            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                        <div ref={buttonsRef} className="contents">
+                            {/* Button 1: Cotar Materiais (Glass Effect) */}
+                            <Button
+                                className="group/btn relative h-11 pointer-events-auto rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-6 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30"
+                                onClick={(e) => handleScroll(e, '#contato')}
+                            >
                                 <span className="flex items-center justify-center gap-2.5">
+                                    <PhoneCallIcon className="size-4" />
                                     Falar no WhatsApp
                                 </span>
-                            </a>
-                        </Button>
+                            </Button>
 
-                        {/* Button 2: Cotar */}
-                        <Button
-                            className="group/btn relative rounded-full border border-primary bg-primary px-6 py-2.5 h-11 text-sm font-bold text-secondary-foreground transition-all duration-300 hover:bg-white/[0.1] hover:backdrop-blur-md hover:border-white/[0.15] hover:text-white pointer-events-auto"
-                            onClick={(e) => handleScroll(e, '#contato')}
-                        >
-                            <span className="flex items-center justify-center gap-2.5">
-                                Cotar Materiais
-                                <ArrowRightIcon className="size-4" />
-                            </span>
-                        </Button>
+                            {/* Button 2: Cotar Materiais (Primary Orange) */}
+                            <Button
+                                className="group/btn relative h-11 pointer-events-auto rounded-full border border-primary bg-primary px-6 py-2.5 text-sm font-bold text-secondary-foreground transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.1] hover:text-white hover:backdrop-blur-md"
+                                onClick={(e) => handleScroll(e, '#contato')}
+                            >
+                                <span className="flex items-center justify-center gap-2.5">
+                                    Cotar Materiais
+                                    <ArrowRightIcon className="size-4" />
+                                </span>
+                            </Button>
+                        </div>
                     </div>
                 </div>
 

@@ -13,7 +13,7 @@ const solutions = [
     title: "Madeiras para Construção",
     description:
       "Qualidade estrutural para todas as etapas da obra. Fornecemos madeiras certificadas com a melhor relação custo-benefício, direto dos melhores produtores do país.",
-    image: "https://images.unsplash.com/photo-1520869562399-e772f042f422?w=1200&q=80",
+    image: "/01.Madeiras_para_Construção.webp",
     features: ["Eucalipto tratado", "Pinus serrado", "Madeira de lei"],
   },
   {
@@ -21,7 +21,7 @@ const solutions = [
     title: "Concreto Usinado",
     description:
       "Entrega programada com precisão logística absoluta. Nossas parcerias estratégicas com as melhores usinas garantem qualidade constante e pontualidade.",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80",
+    image: "/02.Concreto_Usinado.webp",
     features: ["Bombeável", "Convencional", "Especial"],
   },
   {
@@ -29,7 +29,7 @@ const solutions = [
     title: "Compensados Especiais",
     description:
       "Plastificados, resinados, estruturais e navais. Variedade completa para cada necessidade e fase do seu projeto, com garantia de procedência.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+    image: "/03.Compensados_Especiais.webp",
     features: ["Plastificado", "Resinado", "Naval"],
   },
 ];
@@ -55,8 +55,8 @@ export default function Solutions() {
           {
             opacity: 1,
             y: 0,
-            stagger: 0.12,
-            duration: 0.7,
+            stagger: 0.1,
+            duration: 0.5,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -113,12 +113,12 @@ export default function Solutions() {
             { clipPath: "inset(100% 0 0 0)" },
             {
               clipPath: "inset(0% 0 0 0)",
-              duration: 1.2,
+              duration: 0.7,
               ease: "power4.inOut",
               scrollTrigger: {
                 trigger: panel,
                 containerAnimation: scrollTween,
-                start: "left 60%", // Trigger when panel enters viewport center
+                start: "left 65%", // Slightly earlier
                 once: true,
               }
             }
@@ -130,12 +130,12 @@ export default function Solutions() {
             { scale: 1.4 },
             {
               scale: 1.0,
-              duration: 1.4,
+              duration: 0.8,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: panel,
                 containerAnimation: scrollTween,
-                start: "left 60%",
+                start: "left 65%",
                 once: true,
               }
             }
@@ -149,14 +149,14 @@ export default function Solutions() {
             {
               opacity: 1,
               y: 0,
-              stagger: 0.08,
-              duration: 0.6,
-              delay: 0.4, // Wait for card reveal
+              stagger: 0.05,
+              duration: 0.4,
+              delay: 0.1, // Faster follow-up
               ease: "power2.out",
               scrollTrigger: {
                 trigger: panel,
                 containerAnimation: scrollTween,
-                start: "left 60%",
+                start: "left 65%",
                 once: true,
               },
             }
