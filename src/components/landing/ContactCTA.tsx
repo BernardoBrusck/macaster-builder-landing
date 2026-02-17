@@ -135,13 +135,6 @@ export default function ContactCTA() {
             style={{ background: "linear-gradient(to bottom, white 50%, transparent 50%)" }}
             data-header-theme="dark"
         >
-            {/* ... styles ... */}
-            <style>{`
-                @keyframes cta-shimmer {
-                    0% { transform: translateX(-150%) skewX(12deg); }
-                    100% { transform: translateX(150%) skewX(12deg); }
-                }
-            `}</style>
 
             <div className="mx-auto max-w-6xl px-4 lg:px-8">
                 {/* ... card ... */}

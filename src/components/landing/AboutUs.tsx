@@ -308,6 +308,9 @@ export default function AboutUs() {
                         <img
                             src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
                             alt="Canteiro de obras moderno com equipe profissional"
+                            width={800}
+                            height={600}
+                            loading="lazy"
                             className="h-full w-full object-cover"
                         />
                         {/* Gradient overlay at bottom */}
