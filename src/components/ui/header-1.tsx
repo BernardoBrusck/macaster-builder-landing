@@ -14,25 +14,36 @@ function useHeaderTheme() {
     const [isLight, setIsLight] = React.useState(false);
 
     React.useEffect(() => {
+        let rafId = 0;
+        let ticking = false;
+
         const handleScroll = () => {
-            const lightSections = document.querySelectorAll('[data-header-theme="light"]');
-            const headerBottom = 48; // header height in px (h-12)
-            let overLight = false;
+            if (ticking) return;
+            ticking = true;
+            rafId = requestAnimationFrame(() => {
+                const lightSections = document.querySelectorAll('[data-header-theme="light"]');
+                const headerBottom = 48;
+                let overLight = false;
 
-            lightSections.forEach((section) => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top < headerBottom && rect.bottom > 0) {
-                    overLight = true;
-                }
+                lightSections.forEach((section) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < headerBottom && rect.bottom > 0) {
+                        overLight = true;
+                    }
+                });
+
+                setIsLight(overLight);
+                ticking = false;
             });
-
-            setIsLight(overLight);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initial check
+        handleScroll();
 
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            cancelAnimationFrame(rafId);
+        };
     }, []);
 
     return isLight;

@@ -114,7 +114,7 @@ export function HeroSection() {
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     onCanPlay={() => setVideoLoaded(true)}
                     className={cn(
                         "w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity]",
@@ -179,16 +179,6 @@ export function HeroSection() {
 
                     {/* Buttons with Liquid Glass Effect */}
                     <div className="relative z-30 flex flex-row flex-wrap items-center justify-center gap-3 pt-2">
-                        {/* Define Shimmer Animation & Filter locally - moved out of ref container */}
-                        <style>{`
-                            @keyframes shimmer {
-                                0% { transform: translateX(-150%); }
-                                100% { transform: translateX(150%); }
-                            }
-                            .animate-shimmer {
-                                animation: shimmer 2s infinite linear;
-                            }
-                        `}</style>
 
                         <div ref={buttonsRef} className="contents">
                             {/* Button 1: Cotar Materiais (Glass Effect) */}
