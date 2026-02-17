@@ -115,11 +115,7 @@ export function HeroSection() {
                     muted
                     playsInline
                     preload="auto"
-                    onCanPlay={() => {
-                        setVideoLoaded(true);
-                        // Force play in case browser blocked autoplay attribute
-                        videoRef.current?.play().catch(() => {});
-                    }}
+                    onCanPlay={() => setVideoLoaded(true)}
                     className={cn(
                         "w-full h-full object-cover transition-opacity duration-1000",
                         videoLoaded ? "opacity-100" : "opacity-0"
