@@ -13,7 +13,7 @@ const solutions = [
     title: "Madeiras para Construção",
     description:
       "Qualidade estrutural para todas as etapas da obra. Fornecemos madeiras certificadas com a melhor relação custo-benefício, direto dos melhores produtores do país.",
-    image: "/01.Madeiras_para_Construção.webp",
+    image: "/01.Madeiras_para_Construcao.webp",
     features: ["Eucalipto tratado", "Pinus serrado", "Madeira de lei"],
   },
   {
