@@ -234,9 +234,6 @@ export default function Solutions() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Large number */}
-                  <span className="absolute bottom-4 left-6 text-[6rem] md:text-[9rem] font-black leading-none text-white/[0.15] tracking-tighter select-none pointer-events-none z-10">
-                    {solution.number}
-                  </span>
                 </div>
 
                 {/* Content Side (desktop) */}
