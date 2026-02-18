@@ -51,7 +51,8 @@ export default function ContactCTA() {
                         scrollTrigger: {
                             trigger: sectionRef.current,
                             start: "top 75%",
-                            once: true,
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );
@@ -71,7 +72,8 @@ export default function ContactCTA() {
                         scrollTrigger: {
                             trigger: sectionRef.current,
                             start: "top 75%",
-                            once: true,
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );
@@ -91,7 +93,8 @@ export default function ContactCTA() {
                         scrollTrigger: {
                             trigger: trustRef.current,
                             start: "top 85%",
-                            once: true,
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );

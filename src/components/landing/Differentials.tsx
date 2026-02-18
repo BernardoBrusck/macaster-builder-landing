@@ -54,10 +54,26 @@ export default function Differentials() {
                         scrollTrigger: {
                             trigger: section,
                             start: "top 85%",
-                            once: true,
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                             onEnter: () => {
                                 counters.forEach((el, i) => {
                                     animateValue(el as HTMLElement, stats[i].value);
+                                });
+                            },
+                            onEnterBack: () => {
+                                counters.forEach((el, i) => {
+                                    animateValue(el as HTMLElement, stats[i].value);
+                                });
+                            },
+                            onLeave: () => {
+                                counters.forEach((el) => {
+                                    (el as HTMLElement).textContent = "0";
+                                });
+                            },
+                            onLeaveBack: () => {
+                                counters.forEach((el) => {
+                                    (el as HTMLElement).textContent = "0";
                                 });
                             },
                         },
