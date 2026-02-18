@@ -167,28 +167,11 @@ export const ClientsSection = ({
                     scrollTrigger: {
                         trigger: statsRef.current,
                         start: "top 85%",
-                        end: "bottom 15%",
-                        toggleActions: "play reverse play reverse",
+                        once: true,
                         onEnter: () => {
                             counterEls.forEach((el) => {
                                 const raw = el.getAttribute("data-target") ?? "";
                                 animateCounter(el as HTMLElement, raw);
-                            });
-                        },
-                        onEnterBack: () => {
-                            counterEls.forEach((el) => {
-                                const raw = el.getAttribute("data-target") ?? "";
-                                animateCounter(el as HTMLElement, raw);
-                            });
-                        },
-                        onLeave: () => {
-                            counterEls.forEach((el) => {
-                                (el as HTMLElement).textContent = "0";
-                            });
-                        },
-                        onLeaveBack: () => {
-                            counterEls.forEach((el) => {
-                                (el as HTMLElement).textContent = "0";
                             });
                         },
                     },
