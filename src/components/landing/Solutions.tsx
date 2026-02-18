@@ -61,7 +61,8 @@ export default function Solutions() {
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",
-              once: true,
+              end: "bottom 15%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );

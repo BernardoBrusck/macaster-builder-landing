@@ -11,14 +11,17 @@ function useCounter(end: number, suffix = "", trigger?: boolean) {
     const ref = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        if (!trigger) return;
-        const obj = { val: 0 };
-        gsap.to(obj, {
-            val: end,
-            duration: 2,
-            ease: "power2.out",
-            onUpdate: () => setValue(Math.round(obj.val)),
-        });
+        if (trigger) {
+            const obj = { val: 0 };
+            gsap.to(obj, {
+                val: end,
+                duration: 2,
+                ease: "power2.out",
+                onUpdate: () => setValue(Math.round(obj.val)),
+            });
+        } else {
+            setValue(0);
+        }
     }, [trigger, end]);
 
     return { ref, display: `${value}${suffix}` };
@@ -143,6 +146,8 @@ export default function AboutUs() {
                         scrollTrigger: {
                             trigger: headingRef.current,
                             start: "top 80%",
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );
@@ -161,6 +166,8 @@ export default function AboutUs() {
                         scrollTrigger: {
                             trigger: contentRef.current,
                             start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );
@@ -180,6 +187,8 @@ export default function AboutUs() {
                         scrollTrigger: {
                             trigger: imageRef.current,
                             start: "top 80%",
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );
@@ -217,7 +226,12 @@ export default function AboutUs() {
                         scrollTrigger: {
                             trigger: statsRef.current,
                             start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                             onEnter: () => setCountersActive(true),
+                            onEnterBack: () => setCountersActive(true),
+                            onLeave: () => setCountersActive(false),
+                            onLeaveBack: () => setCountersActive(false),
                         },
                     }
                 );
@@ -237,6 +251,8 @@ export default function AboutUs() {
                         scrollTrigger: {
                             trigger: pillarsRef.current,
                             start: "top 80%",
+                            end: "bottom 15%",
+                            toggleActions: "play reverse play reverse",
                         },
                     }
                 );

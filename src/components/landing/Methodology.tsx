@@ -87,7 +87,8 @@ export default function Methodology() {
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",
-              once: true,
+              end: "bottom 15%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
@@ -127,7 +128,8 @@ export default function Methodology() {
             scrollTrigger: {
               trigger: card,
               start: "top 82%",
-              once: true,
+              end: "bottom 15%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
@@ -146,7 +148,8 @@ export default function Methodology() {
               scrollTrigger: {
                 trigger: card,
                 start: "top 75%",
-                once: true,
+                end: "bottom 15%",
+                toggleActions: "play reverse play reverse",
               },
             }
           );
@@ -166,7 +169,8 @@ export default function Methodology() {
               scrollTrigger: {
                 trigger: card,
                 start: "top 78%",
-                once: true,
+                end: "bottom 15%",
+                toggleActions: "play reverse play reverse",
               },
             }
           );
