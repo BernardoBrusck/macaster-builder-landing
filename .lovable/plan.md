@@ -1,72 +1,95 @@
 
+# Animacoes de Entrada e Saida em Todos os Elementos
 
-# Diagnostico e Otimizacao de Performance - Macaster
+## Objetivo
+Fazer com que todos os elementos animados tenham animacao de **entrada** ao aparecer e **saida** ao sair da viewport, e que ao voltar (scroll para cima), a animacao de entrada se repita.
 
-## Problemas Identificados
+## Como Funciona
+No GSAP ScrollTrigger, a propriedade `toggleActions` controla o comportamento em 4 momentos:
+- `onEnter` (scroll para baixo, elemento entra)
+- `onLeave` (scroll para baixo, elemento sai)
+- `onEnterBack` (scroll para cima, elemento volta)
+- `onLeaveBack` (scroll para cima, elemento sai por cima)
 
-### 1. Video de fundo pesado com `preload="auto"`
-O video `/background-video.mp4` esta com `preload="auto"`, forcando o download completo antes de iniciar. Isso bloqueia o carregamento inicial e prejudica o LCP (Largest Contentful Paint). Alem disso, o `<link rel="preload">` no `index.html` duplica esse esforco.
+O valor `"play reverse play reverse"` faz exatamente o que voce quer:
+- Entra: anima para o estado final (play)
+- Sai: volta ao estado inicial (reverse)
+- Volta: anima de novo (play)
+- Sai por cima: volta ao estado inicial (reverse)
 
-### 2. Fontes bloqueantes via `@import` no CSS
-A fonte Inter esta sendo carregada via `@import url(...)` no `index.css`, que e render-blocking. Isso atrasa o FCP (First Contentful Paint).
+## Situacao Atual
 
-### 3. GSAP e Framer Motion carregados no bundle inicial
-O Hero usa GSAP para animacoes de entrada, e o InfiniteSlider usa Framer Motion. Ambos sao bibliotecas pesadas carregadas no bundle principal.
+| Componente | Comportamento atual | Animacoes |
+|---|---|---|
+| AboutUs | Toca uma vez | Heading, content fade, image reveal, stats, pillar cards |
+| Methodology | `once: true` | Header, step cards, icons, numbers |
+| Solutions | `once: true` | Header, panel content |
+| Differentials | `once: true` | Stat items + counters |
+| ContactCTA | `once: true` | Heading, form, trust badges |
+| testimonial-card | `once: true` (stats), `toggleActions` (cards) | Cards ja funcionam corretamente |
 
-### 4. Imagens externas sem dimensoes definidas
-As imagens do Unsplash (AboutUs, testimonials) nao tem `width`/`height` definidos, causando CLS (Cumulative Layout Shift).
+## Alteracoes por Arquivo
 
-### 5. Scroll listener sem `passive` flag (useScroll)
-O hook `useScroll` adiciona listener sem `{ passive: true }`, prejudicando a responsividade do scroll.
+### 1. `src/components/landing/AboutUs.tsx`
+- Em todas as 5 animacoes ScrollTrigger (heading, content, image reveal, stats, pillars):
+  - Adicionar `toggleActions: "play reverse play reverse"`
+- O counter de stats precisa resetar: ao `onLeaveBack`/`onLeave`, setar `countersActive = false`; ao entrar de novo, reativar
 
-### 6. Header theme detection com scroll listener nao-otimizado
-O `useHeaderTheme` usa `querySelectorAll` em cada scroll event sem throttle, causando trabalho excessivo na main thread.
+### 2. `src/components/landing/Methodology.tsx`
+- Em todas as 4 animacoes ScrollTrigger (header, step cards, icons, numbers):
+  - Remover `once: true`
+  - Adicionar `toggleActions: "play reverse play reverse"`
 
-### 7. Inline `<style>` tags em componentes
-Hero e TestimonialCard injetam `<style>` com keyframes inline, recriando estilos a cada render.
+### 3. `src/components/landing/Solutions.tsx`
+- Na animacao do header:
+  - Remover `once: true`
+  - Adicionar `toggleActions: "play reverse play reverse"`
+- Nas animacoes dentro do horizontal scroll (paineis): manter `once: true` pois sao animacoes dentro de um scroll horizontal pinned e reverter causaria problemas visuais
 
----
+### 4. `src/components/landing/Differentials.tsx`
+- Na animacao dos stat items:
+  - Remover `once: true`
+  - Adicionar `toggleActions: "play reverse play reverse"`
+- O counter precisa re-executar ao entrar de novo: usar `onEnterBack` para chamar `animateValue` novamente e resetar os valores ao sair
 
-## Plano de Otimizacao
+### 5. `src/components/landing/ContactCTA.tsx`
+- Em todas as 3 animacoes ScrollTrigger (heading, form, trust badges):
+  - Remover `once: true`
+  - Adicionar `toggleActions: "play reverse play reverse"`
 
-### A. Video de fundo (impacto alto)
-- Trocar `preload="auto"` por `preload="metadata"` no video
-- Remover `<link rel="preload" href="/background-video.mp4">` do `index.html` (preload de videos grandes e desperdicio de banda)
-- Adicionar `poster` attribute com um frame do video (ou cor solida) para exibir algo instantaneo
+### 6. `src/components/ui/testimonial-card.tsx`
+- Na animacao dos stats/counters:
+  - Remover `once: true`
+  - Adicionar `toggleActions: "play reverse play reverse"`
+  - Adicionar `onEnterBack` para re-executar os counters
+- Cards ja estao corretos com `toggleActions: "play none none reverse"`
 
-### B. Fontes (impacto alto)
-- Mover a importacao de fontes do `@import` no CSS para `<link>` tags no `index.html` com `display=swap`
-- Remover o `@import url(...)` do `index.css`
-- Adicionar `<link rel="preload" as="style">` para as fontes
+## Tratamento Especial: Counters
 
-### C. Scroll listeners (impacto medio)
-- Adicionar `{ passive: true }` ao `useScroll` hook
-- Adicionar throttle simples (via `requestAnimationFrame`) ao `useHeaderTheme`
-
-### D. Inline styles para CSS (impacto baixo-medio)
-- Mover keyframes `shimmer` e `cta-shimmer` dos componentes para o `index.css`
-- Remover as tags `<style>` inline do Hero e ContactCTA
-
-### E. Imagens com dimensoes (impacto medio - CLS)
-- Adicionar `width` e `height` explicitos nas imagens do AboutUs e testimonials
-- Adicionar `loading="lazy"` nas imagens abaixo da dobra
-
-### F. Acessibilidade e meta (impacto baixo)
-- Adicionar `<meta name="description">` mais curta e focada (ja existe, apenas verificar)
-- Garantir que botoes tenham `aria-label` adequados
-
----
+Os contadores numericos (AboutUs, Differentials, testimonial-card) precisam de logica extra:
+- Ao sair da tela: resetar o texto para "0"
+- Ao entrar novamente: re-executar a animacao de contagem
+- Isso sera feito usando os callbacks `onEnter`, `onEnterBack`, `onLeave` e `onLeaveBack` do ScrollTrigger
 
 ## Detalhes Tecnicos
 
-### Arquivos modificados:
+Exemplo da mudanca padrao (antes/depois):
 
-1. **`index.html`** - Remover preload do video, mover fontes para `<link>` tags
-2. **`src/index.css`** - Remover `@import url(...)`, adicionar keyframes shimmer/cta-shimmer
-3. **`src/components/ui/hero-1.tsx`** - `preload="metadata"`, remover `<style>` inline
-4. **`src/components/ui/use-scroll.ts`** - Adicionar `{ passive: true }`
-5. **`src/components/ui/header-1.tsx`** - Throttle no useHeaderTheme com rAF
-6. **`src/components/landing/AboutUs.tsx`** - `width`/`height` e `loading="lazy"` na imagem
-7. **`src/components/ui/testimonial-card.tsx`** - Remover `<style>` inline (shimmer)
-8. **`src/components/landing/ContactCTA.tsx`** - Remover `<style>` inline (cta-shimmer)
+```text
+ANTES:
+scrollTrigger: {
+    trigger: el,
+    start: "top 85%",
+    once: true,
+}
 
+DEPOIS:
+scrollTrigger: {
+    trigger: el,
+    start: "top 85%",
+    end: "bottom 15%",
+    toggleActions: "play reverse play reverse",
+}
+```
+
+O `end: "bottom 15%"` define quando o elemento "saiu" da viewport, ativando o reverse. Valores serao ajustados por componente para timing natural.
