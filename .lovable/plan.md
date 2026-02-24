@@ -1,95 +1,25 @@
 
-# Animacoes de Entrada e Saida em Todos os Elementos
 
-## Objetivo
-Fazer com que todos os elementos animados tenham animacao de **entrada** ao aparecer e **saida** ao sair da viewport, e que ao voltar (scroll para cima), a animacao de entrada se repita.
+## Reduzir o comprimento do scroll horizontal na seção de Soluções
 
-## Como Funciona
-No GSAP ScrollTrigger, a propriedade `toggleActions` controla o comportamento em 4 momentos:
-- `onEnter` (scroll para baixo, elemento entra)
-- `onLeave` (scroll para baixo, elemento sai)
-- `onEnterBack` (scroll para cima, elemento volta)
-- `onLeaveBack` (scroll para cima, elemento sai por cima)
+### Problema
+A seção de Soluções usa scroll horizontal com GSAP onde o `end` do ScrollTrigger e calculado como `track.offsetWidth - window.innerWidth`. Como o track tem `width: 300vw` (3 paineis x 100vw), isso cria uma area de scroll muito longa (~200vh de scroll vertical para percorrer todo o conteudo horizontal).
 
-O valor `"play reverse play reverse"` faz exatamente o que voce quer:
-- Entra: anima para o estado final (play)
-- Sai: volta ao estado inicial (reverse)
-- Volta: anima de novo (play)
-- Sai por cima: volta ao estado inicial (reverse)
+### Solucao
+Reduzir o multiplicador do scroll para que a transicao entre os cards exija menos scroll vertical.
 
-## Situacao Atual
+### Mudancas tecnicas
 
-| Componente | Comportamento atual | Animacoes |
-|---|---|---|
-| AboutUs | Toca uma vez | Heading, content fade, image reveal, stats, pillar cards |
-| Methodology | `once: true` | Header, step cards, icons, numbers |
-| Solutions | `once: true` | Header, panel content |
-| Differentials | `once: true` | Stat items + counters |
-| ContactCTA | `once: true` | Heading, form, trust badges |
-| testimonial-card | `once: true` (stats), `toggleActions` (cards) | Cards ja funcionam corretamente |
+**`src/components/landing/Solutions.tsx`** (1 alteracao):
+- Linha 86: Alterar o calculo do `end` do ScrollTrigger para usar um multiplicador menor, reduzindo o scroll necessario:
+  ```typescript
+  // De:
+  end: () => "+=" + (track.offsetWidth - window.innerWidth),
+  // Para:
+  end: () => "+=" + (track.offsetWidth - window.innerWidth) * 0.5,
+  ```
+- Aplicar o mesmo multiplicador na linha 98 (progress bar end) para manter a barra de progresso sincronizada.
+- Ajustar o `scrub` de `1` para `0.5` para uma resposta mais rapida ao scroll.
 
-## Alteracoes por Arquivo
+Isso reduz pela metade a quantidade de scroll vertical necessaria para percorrer todos os 3 cards.
 
-### 1. `src/components/landing/AboutUs.tsx`
-- Em todas as 5 animacoes ScrollTrigger (heading, content, image reveal, stats, pillars):
-  - Adicionar `toggleActions: "play reverse play reverse"`
-- O counter de stats precisa resetar: ao `onLeaveBack`/`onLeave`, setar `countersActive = false`; ao entrar de novo, reativar
-
-### 2. `src/components/landing/Methodology.tsx`
-- Em todas as 4 animacoes ScrollTrigger (header, step cards, icons, numbers):
-  - Remover `once: true`
-  - Adicionar `toggleActions: "play reverse play reverse"`
-
-### 3. `src/components/landing/Solutions.tsx`
-- Na animacao do header:
-  - Remover `once: true`
-  - Adicionar `toggleActions: "play reverse play reverse"`
-- Nas animacoes dentro do horizontal scroll (paineis): manter `once: true` pois sao animacoes dentro de um scroll horizontal pinned e reverter causaria problemas visuais
-
-### 4. `src/components/landing/Differentials.tsx`
-- Na animacao dos stat items:
-  - Remover `once: true`
-  - Adicionar `toggleActions: "play reverse play reverse"`
-- O counter precisa re-executar ao entrar de novo: usar `onEnterBack` para chamar `animateValue` novamente e resetar os valores ao sair
-
-### 5. `src/components/landing/ContactCTA.tsx`
-- Em todas as 3 animacoes ScrollTrigger (heading, form, trust badges):
-  - Remover `once: true`
-  - Adicionar `toggleActions: "play reverse play reverse"`
-
-### 6. `src/components/ui/testimonial-card.tsx`
-- Na animacao dos stats/counters:
-  - Remover `once: true`
-  - Adicionar `toggleActions: "play reverse play reverse"`
-  - Adicionar `onEnterBack` para re-executar os counters
-- Cards ja estao corretos com `toggleActions: "play none none reverse"`
-
-## Tratamento Especial: Counters
-
-Os contadores numericos (AboutUs, Differentials, testimonial-card) precisam de logica extra:
-- Ao sair da tela: resetar o texto para "0"
-- Ao entrar novamente: re-executar a animacao de contagem
-- Isso sera feito usando os callbacks `onEnter`, `onEnterBack`, `onLeave` e `onLeaveBack` do ScrollTrigger
-
-## Detalhes Tecnicos
-
-Exemplo da mudanca padrao (antes/depois):
-
-```text
-ANTES:
-scrollTrigger: {
-    trigger: el,
-    start: "top 85%",
-    once: true,
-}
-
-DEPOIS:
-scrollTrigger: {
-    trigger: el,
-    start: "top 85%",
-    end: "bottom 15%",
-    toggleActions: "play reverse play reverse",
-}
-```
-
-O `end: "bottom 15%"` define quando o elemento "saiu" da viewport, ativando o reverse. Valores serao ajustados por componente para timing natural.
