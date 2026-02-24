@@ -230,10 +230,6 @@ export function LogosSection() {
 
 const logos = [
     {
-        src: "https://storage.efferd.com/logo/nvidia-wordmark.svg",
-        alt: "Gerdau",
-    },
-    {
         src: "https://storage.efferd.com/logo/supabase-wordmark.svg",
         alt: "ArcelorMittal",
     },
