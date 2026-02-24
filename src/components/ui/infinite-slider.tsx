@@ -95,7 +95,7 @@ export function InfiniteSlider({
     const childArray = Children.toArray(children);
 
     return (
-        <div className={cn('overflow-hidden', className)}>
+        <div className={cn('overflow-hidden', className)} style={{ opacity: width > 0 ? 1 : 0 }}>
             <motion.div
                 className='flex w-max'
                 style={{
