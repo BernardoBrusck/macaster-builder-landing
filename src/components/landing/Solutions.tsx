@@ -77,13 +77,13 @@ export default function Solutions() {
         scrollTrigger: {
           trigger: section,
           pin: true,
-          scrub: 1,
+          scrub: 0.5,
           snap: {
             snapTo: 1 / (totalPanels - 1),
             duration: { min: 0.2, max: 0.6 },
             ease: "power2.inOut",
           },
-          end: () => "+=" + (track.offsetWidth - window.innerWidth),
+          end: () => "+=" + (track.offsetWidth - window.innerWidth) * 0.5,
           invalidateOnRefresh: true,
         },
       });
@@ -96,7 +96,7 @@ export default function Solutions() {
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: () => "+=" + (track.offsetWidth - window.innerWidth),
+            end: () => "+=" + (track.offsetWidth - window.innerWidth) * 0.5,
             scrub: 1,
           },
         });
