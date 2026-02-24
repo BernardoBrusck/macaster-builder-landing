@@ -230,27 +230,27 @@ export function LogosSection() {
 
 const logos = [
     {
-        src: "https://storage.efferd.com/logo/nvidia-wordmark.svg",
-        alt: "Gerdau",
+        src: "/logos/constrel.png",
+        alt: "Constreel",
     },
     {
-        src: "https://storage.efferd.com/logo/supabase-wordmark.svg",
-        alt: "ArcelorMittal",
+        src: "/logos/engefort.png",
+        alt: "Engefort",
     },
     {
-        src: "https://storage.efferd.com/logo/openai-wordmark.svg",
-        alt: "Votorantim",
+        src: "/logos/ferrobras.png",
+        alt: "Ferrobras",
     },
     {
-        src: "https://storage.efferd.com/logo/turso-wordmark.svg",
-        alt: "InterCement",
+        src: "/logos/concresul.png",
+        alt: "Concresul",
     },
     {
-        src: "https://storage.efferd.com/logo/vercel-wordmark.svg",
-        alt: "Duratex",
+        src: "/logos/acoplan.png",
+        alt: "Açoplan",
     },
     {
-        src: "https://storage.efferd.com/logo/github-wordmark.svg",
-        alt: "Eucatex",
+        src: "/logos/madeiron.png",
+        alt: "Madeiron",
     },
 ];
