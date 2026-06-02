@@ -3,22 +3,22 @@ import { TrendingUp, Building2, Users, Award } from "lucide-react";
 const stats = [
   {
     icon: TrendingUp,
-    value: "R$ 150M+",
-    label: "em materiais negociados",
-  },
-  {
-    icon: Building2,
-    value: "200+",
-    label: "obras atendidas",
+    value: "R$ 10M+",
+    label: "em fornecimentos negociados",
   },
   {
     icon: Users,
-    value: "98%",
-    label: "de clientes recorrentes",
+    value: "1.000+",
+    label: "clientes atendidos",
+  },
+  {
+    icon: Building2,
+    value: "100%",
+    label: "foco em reduzir custos",
   },
   {
     icon: Award,
-    value: "15+",
+    value: "5+",
     label: "anos de mercado",
   },
 ];

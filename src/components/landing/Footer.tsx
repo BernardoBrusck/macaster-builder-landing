@@ -59,10 +59,10 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <a 
-                  href="https://wa.me/5500000000000" 
+                  href="https://wa.me/5547997027016" 
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  WhatsApp (a definir)
+                  (47) 99702-7016
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -82,7 +82,7 @@ const Footer = () => {
             <h4 className="font-semibold text-foreground mb-4">Redes Sociais</h4>
             <div className="flex gap-3">
               {[
-                { icon: Instagram, href: "#", label: "Instagram" },
+                { icon: Instagram, href: "https://instagram.com/macastergroup", label: "Instagram" },
                 { icon: Linkedin, href: "#", label: "LinkedIn" },
                 { icon: Facebook, href: "#", label: "Facebook" },
               ].map((social) => (

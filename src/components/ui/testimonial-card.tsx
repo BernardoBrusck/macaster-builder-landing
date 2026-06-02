@@ -41,16 +41,26 @@ export interface ClientsSectionProps {
 // --- Counter helper ---
 function animateCounter(el: HTMLElement, raw: string) {
     const num = parseInt(raw.replace(/[^\d]/g, ""));
-    if (isNaN(num)) return;
-    const prefix = raw.match(/^[^\d]*/)?.[0] ?? "";
-    const suffix = raw.replace(/^[^\d]*\d+/, "");
+    if (isNaN(num)) {
+        el.textContent = raw;
+        return;
+    }
+    const prefixMatch = raw.match(/^[^0-9]+/);
+    const prefix = prefixMatch ? prefixMatch[0] : "";
+    const suffixMatch = raw.match(/[^0-9]+$/);
+    const suffix = suffixMatch ? suffixMatch[0] : "";
+
     const obj = { val: 0 };
     gsap.to(obj, {
         val: num,
         duration: 2,
         ease: "power2.out",
         onUpdate: () => {
-            el.textContent = prefix + Math.floor(obj.val) + suffix;
+            let formatted = Math.floor(obj.val).toString();
+            if (raw.includes(".") || num >= 1000) {
+                formatted = Math.floor(obj.val).toLocaleString("pt-BR");
+            }
+            el.textContent = prefix + formatted + suffix;
         },
     });
 }
@@ -92,7 +102,8 @@ const StickyTestimonialCard = ({
             className="sticky w-full"
             style={{ top: `${20 + index * 24}px` }}
         >
-            <div className="p-6 rounded-2xl shadow-lg border border-gray-100 bg-white flex flex-col h-auto w-full transition-shadow duration-300 hover:shadow-xl">
+            <div className="p-6 rounded-2xl shadow-2xl border border-white/10 bg-[#111111] flex flex-col h-auto w-full transition-shadow duration-300 hover:shadow-black/20"
+                 style={{ background: "linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%)" }}>
                 {/* Author */}
                 <div className="flex items-center gap-4">
                     <div
@@ -101,16 +112,16 @@ const StickyTestimonialCard = ({
                         aria-label={`Foto de ${testimonial.name}`}
                     />
                     <div className="flex-grow">
-                        <p className="font-bold text-base text-gray-900">
+                        <p className="font-bold text-base text-white">
                             {testimonial.name}
                         </p>
-                        <p className="text-sm text-gray-500">{testimonial.title}</p>
+                        <p className="text-sm text-gray-400">{testimonial.title}</p>
                     </div>
                 </div>
 
                 {/* Rating */}
                 <div className="flex items-center gap-2 my-4">
-                    <span className="font-bold text-sm text-gray-900">
+                    <span className="font-bold text-sm text-white">
                         {testimonial.rating.toFixed(1)}
                     </span>
                     <div className="flex">
@@ -119,7 +130,7 @@ const StickyTestimonialCard = ({
                                 key={i}
                                 className={`h-4 w-4 ${i < Math.floor(testimonial.rating)
                                     ? "text-yellow-400 fill-yellow-400"
-                                    : "text-gray-200"
+                                    : "text-white/20"
                                     }`}
                             />
                         ))}
@@ -128,7 +139,7 @@ const StickyTestimonialCard = ({
 
                 {/* Quote */}
                 {testimonial.quote && (
-                    <p className="text-sm leading-relaxed text-gray-600">
+                    <p className="text-sm leading-relaxed text-gray-300">
                         &ldquo;{testimonial.quote}&rdquo;
                     </p>
                 )}
@@ -191,16 +202,16 @@ export const ClientsSection = ({
             <div className="mx-auto max-w-5xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                 {/* Left Column: Sticky */}
                 <div className="flex flex-col gap-5 lg:sticky lg:top-20">
-                    {/* Tag — orange styled */}
-                    <div className="inline-flex items-center gap-2 self-start rounded-full border border-[#F39200]/30 bg-[#F39200]/5 px-3 py-1 text-sm">
+                    {/* Tag — styled */}
+                    <div className="inline-flex items-center gap-2 self-start rounded-full border border-zinc-800 bg-[#111111] px-3 py-1 text-sm">
                         <div className="h-2 w-2 rounded-full bg-green-500" />
-                        <span className="text-[#F39200] text-xs font-semibold">{tagLabel}</span>
+                        <span className="text-white text-xs font-semibold">{tagLabel}</span>
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.03em] text-gray-900 leading-tight">
                         {title}
                     </h2>
-                    <p className="text-[0.9rem] leading-relaxed text-gray-500">
+                    <p className="text-[0.9rem] leading-relaxed text-gray-600">
                         {description}
                     </p>
 
@@ -216,7 +227,7 @@ export const ClientsSection = ({
                                     >
                                         0
                                     </p>
-                                    <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest mt-0.5">
+                                    <p className="text-[10px] text-gray-500 font-medium uppercase tracking-widest mt-0.5">
                                         {stat.label}
                                     </p>
                                 </div>
@@ -227,26 +238,26 @@ export const ClientsSection = ({
 
                     {/* Buttons */}
                     <div className="flex items-center gap-3 mt-6">
-                        {/* Outline button — same hover as primary */}
+                        {/* Outline button */}
                         <button
                             onClick={onSecondaryClick}
-                            className="group/btn relative overflow-hidden rounded-full border-2 border-[#F39200] bg-white px-6 h-11 text-[13px] font-semibold text-[#F39200] transition-all duration-500 hover:bg-[#FFAB2E] hover:border-[#FFAB2E] hover:text-white hover:shadow-xl hover:shadow-[#F39200]/30 cursor-pointer"
+                            className="group/btn relative overflow-hidden rounded-full border-2 border-[#111111] bg-transparent px-6 h-11 text-[13px] font-semibold text-[#111111] transition-all duration-500 hover:bg-[#111111] hover:text-white hover:shadow-xl hover:shadow-black/10 cursor-pointer"
                         >
                             {/* Shimmer */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
                             <span className="relative z-10 flex items-center gap-2.5">
                                 <PhoneCallIcon className="size-4" />
                                 {secondaryActionLabel}
                             </span>
                         </button>
 
-                        {/* Primary button — brighter on hover */}
+                        {/* Primary button */}
                         <Button
                             onClick={onPrimaryClick}
-                            className="group/btn relative overflow-hidden rounded-full border border-[#F39200] bg-[#F39200] px-6 h-11 text-[13px] font-bold text-white transition-all duration-500 hover:bg-[#FFAB2E] hover:border-[#FFAB2E] hover:shadow-xl hover:shadow-[#F39200]/30"
+                            className="group/btn relative overflow-hidden rounded-full border border-[#111111] bg-[#111111] px-6 h-11 text-[13px] font-bold text-white transition-all duration-500 hover:bg-black hover:border-black hover:shadow-xl hover:shadow-black/10"
                         >
                             {/* Shimmer */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
                             <span className="relative z-10 flex items-center gap-2.5">
                                 {primaryActionLabel}
                                 <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover/btn:translate-x-1" />

@@ -10,27 +10,27 @@ gsap.registerPlugin(ScrollTrigger);
 const solutions = [
   {
     number: "01",
-    title: "Madeiras para Construção",
+    title: "Compensados e Madeiras",
     description:
-      "Qualidade estrutural para todas as etapas da obra. Fornecemos madeiras certificadas com a melhor relação custo-benefício, direto dos melhores produtores do país.",
-    image: "/01.Madeiras_para_Construcao.webp",
-    features: ["Eucalipto tratado", "Pinus serrado", "Madeira de lei"],
+      "Qualidade estrutural para todas as etapas da obra. Fornecemos compensados para formas, madeiras certificadas, pinus e eucalipto tratado com a melhor relação custo-benefício.",
+    image: "/images/construction_materials.png",
+    features: ["Compensados", "Pinus tratado", "Eucalipto"],
   },
   {
     number: "02",
     title: "Concreto Usinado",
     description:
-      "Entrega programada com precisão logística absoluta. Nossas parcerias estratégicas com as melhores usinas garantem qualidade constante e pontualidade.",
-    image: "/02.Concreto_Usinado.webp",
+      "Entrega programada com precisão logística. Parcerias estratégicas para garantir qualidade constante, pontualidade e segurança estrutural.",
+    image: "/images/hero_bg.png",
     features: ["Bombeável", "Convencional", "Especial"],
   },
   {
     number: "03",
-    title: "Compensados Especiais",
+    title: "Tintas e Insumos",
     description:
-      "Plastificados, resinados, estruturais e navais. Variedade completa para cada necessidade e fase do seu projeto, com garantia de procedência.",
-    image: "/03.Compensados_Especiais.webp",
-    features: ["Plastificado", "Resinado", "Naval"],
+      "Variedade completa para cada necessidade. Tintas, acabamentos, impermeabilizantes, argamassas e insumos para canteiro.",
+    image: "/images/paints_materials.png",
+    features: ["Tintas", "Impermeabilizantes", "Acabamentos"],
   },
 ];
 
@@ -181,12 +181,12 @@ export default function Solutions() {
       {/* ── Header ── */}
       <div className="relative z-20 pt-10 md:pt-14 pb-6 md:pb-8 px-6 lg:px-12 flex-shrink-0">
         <div ref={headerRef} className="max-w-5xl mx-auto">
-          <span className="inline-block border-b-4 border-[#F39200] pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#F39200] mb-4">
+          <span className="inline-block border-b-4 border-[#ffffff] pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#ffffff] mb-4">
             Soluções
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-bold leading-[1.12] tracking-[-0.03em] text-white">
             Materiais que movem{" "}
-            <span className="text-[#F39200]">sua obra</span>
+            <span className="text-[#ffffff]">sua obra</span>
           </h2>
         </div>
       </div>
@@ -197,7 +197,7 @@ export default function Solutions() {
           <div className="h-[2px] bg-white/10 rounded-full overflow-hidden">
             <div
               ref={progressRef}
-              className="h-full bg-[#F39200] origin-left rounded-full"
+              className="h-full bg-[#ffffff] origin-left rounded-full"
               style={{ transform: "scaleX(0)" }}
             />
           </div>
@@ -215,7 +215,8 @@ export default function Solutions() {
             key={index}
             className="solution-panel relative flex-shrink-0 w-screen h-full flex items-center justify-center px-6 lg:px-12 pb-12"
           >
-            <div className="solution-card relative w-full max-w-[1200px] h-[55vh] min-h-[450px] max-h-[550px] mx-auto rounded-[15px] overflow-hidden border border-white/[0.08] backdrop-blur-md bg-white/[0.02] shadow-2xl">
+            <div className="solution-card relative w-full max-w-[1200px] h-[55vh] min-h-[450px] max-h-[550px] mx-auto rounded-[15px] overflow-hidden border border-white/[0.08] shadow-2xl"
+                 style={{ background: "linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%)" }}>
               {/* ── Card Layout ── */}
               <div className="flex h-full">
                 {/* Image Side */}
@@ -268,14 +269,14 @@ export default function Solutions() {
                         asChild
                       >
                         <a
-                          href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
+                          href={`https://wa.me/5547997027016?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <span className="border-b border-white/30 pb-0.5 group-hover/cta:border-[#F39200] group-hover/cta:text-[#F39200] transition-colors duration-300">
+                          <span className="border-b border-white/30 pb-0.5 group-hover/cta:border-[#ffffff] group-hover/cta:text-[#ffffff] transition-colors duration-300">
                             Solicitar cotação
                           </span>
-                          <ArrowRightIcon className="size-4 ml-2 text-[#F39200] transition-transform duration-300 group-hover/cta:translate-x-2" />
+                          <ArrowRightIcon className="size-4 ml-2 text-[#ffffff] transition-transform duration-300 group-hover/cta:translate-x-2" />
                         </a>
                       </Button>
                     </div>
@@ -314,7 +315,7 @@ export default function Solutions() {
                     asChild
                   >
                     <a
-                      href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
+                      href={`https://wa.me/5547997027016?text=${encodeURIComponent(`Olá, gostaria de cotar ${solution.title}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

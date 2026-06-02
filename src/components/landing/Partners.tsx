@@ -1,10 +1,19 @@
 const partners = [
-  { name: "Gerdau", logo: "G" },
-  { name: "ArcelorMittal", logo: "A" },
-  { name: "Votorantim", logo: "V" },
-  { name: "InterCement", logo: "I" },
-  { name: "Duratex", logo: "D" },
-  { name: "Eucatex", logo: "E" },
+  { name: "Sinercon", fullName: "Sinercon Construtora", logo: "S" },
+  { name: "Alicerce", fullName: "Alicerce Empreend.", logo: "A" },
+  { name: "Medeli", fullName: "Construtora Medeli", logo: "M" },
+  { name: "Stein", fullName: "Construtora Stein", logo: "S" },
+  { name: "Embracol", fullName: "Embracol Construtora", logo: "E" },
+  { name: "Xpcon", fullName: "Xpcon Empreend.", logo: "X" },
+  { name: "Inovar", fullName: "Construtora Inovar", logo: "I" },
+  { name: "Viplan", fullName: "Construtora Viplan", logo: "V" },
+  { name: "Isensee", fullName: "Isensee Empreend.", logo: "I" },
+  { name: "Gart", fullName: "Gart Empreend.", logo: "G" },
+  { name: "Estrutura", fullName: "Grupo Estrutura", logo: "E" },
+  { name: "Torresani", fullName: "Torresani", logo: "T" },
+  { name: "Trapp", fullName: "Trapp Ferreira", logo: "T" },
+  { name: "Copas", fullName: "Copas Engenharia", logo: "C" },
+  { name: "Granada", fullName: "Granada Construtora", logo: "G" },
 ];
 
 const Partners = () => {
@@ -14,18 +23,18 @@ const Partners = () => {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider mb-4 block">
-            Parceiros
+            Nossos Clientes
           </span>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Trabalhamos com os melhores
+            Clientes renomados do mercado
           </h2>
           <p className="text-muted-foreground text-lg">
-            Parcerias estratégicas com os principais fornecedores do mercado para garantir qualidade e competitividade.
+            Garantindo a base de grandes obras em Joinville e região.
           </p>
         </div>
 
         {/* Partners Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {partners.map((partner, index) => (
             <div
               key={index}
@@ -37,8 +46,11 @@ const Partners = () => {
                     {partner.logo}
                   </span>
                 </div>
-                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors block">
                   {partner.name}
+                </span>
+                <span className="text-xs text-muted-foreground/50 hidden group-hover:block transition-all mt-1">
+                  {partner.fullName}
                 </span>
               </div>
             </div>

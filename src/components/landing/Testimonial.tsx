@@ -11,27 +11,23 @@ const Testimonial = () => {
               <Quote className="w-6 h-6 text-primary-foreground" />
             </div>
 
-            {/* Quote */}
             <blockquote className="text-xl md:text-2xl lg:text-3xl text-foreground font-light leading-relaxed mb-8 mt-4">
-              "A parceria com a Macaster transformou nossa gestão de compras. A proximidade no atendimento e a qualidade das negociações nos trouxeram economia real e previsibilidade que não tínhamos antes."
+              "Acredito que o melhor fornecedor não é o que vende mais barato, mas o que entrega a solução certa para que a obra avance com segurança, eficiência e previsibilidade."
             </blockquote>
 
             {/* Author */}
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">RC</span>
+                <span className="text-xl font-bold text-primary-foreground">KE</span>
               </div>
               <div>
-                <div className="font-semibold text-foreground">Ricardo Carvalho</div>
-                <div className="text-sm text-muted-foreground">Diretor Técnico — BuildCorp Engenharia</div>
+                <div className="font-semibold text-foreground">Kevin Eduardo</div>
+                <div className="text-sm text-muted-foreground">Especialista — Macaster Gestor</div>
               </div>
             </div>
           </div>
 
-          {/* Placeholder note */}
-          <p className="text-center text-xs text-muted-foreground/50 mt-4">
-            *Depoimento ilustrativo
-          </p>
+          {/* End of Card */}
         </div>
       </div>
     </section>

@@ -9,19 +9,19 @@ const footerLinks = {
         { label: "Cases", href: "#cases" },
     ],
     contato: [
-        { icon: Phone, text: "(11) 99999-9999", href: "https://wa.me/5511999999999" },
-        { icon: Mail, text: "contato@macaster.com.br", href: "mailto:contato@macaster.com.br" },
-        { icon: MapPin, text: "São Paulo, SP", href: "https://www.google.com/maps/search/?api=1&query=São+Paulo,+SP" },
+        { icon: Phone, text: "(47) 99702-7016", href: "https://wa.me/5547997027016" },
+        { icon: Mail, text: "macaster.representacoes@gmail.com", href: "mailto:macaster.representacoes@gmail.com" },
+        { icon: MapPin, text: "Joinville, SC", href: "https://www.google.com/maps/search/?api=1&query=Joinville,+SC" },
     ],
     social: [
-        { icon: Instagram, href: "#" },
+        { icon: Instagram, href: "https://instagram.com/macastergroup" },
         { icon: Linkedin, href: "#" },
         { icon: Facebook, href: "#" },
     ],
 };
 
 export default function Footer() {
-    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement> | React.FormEvent<HTMLFormElement>, href: string) => {
         e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
@@ -45,7 +45,7 @@ export default function Footer() {
                                 <a
                                     key={i}
                                     href={social.href}
-                                    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#F39200] hover:text-white transition-all duration-300"
+                                    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-white hover:text-black transition-all duration-300"
                                 >
                                     <social.icon size={18} />
                                 </a>
@@ -55,7 +55,7 @@ export default function Footer() {
 
                     {/* Links Column */}
                     <div>
-                        <h3 className="font-bold text-lg mb-6 text-[#F39200]">Institucional</h3>
+                        <h3 className="font-bold text-lg mb-6 text-white">Institucional</h3>
                         <ul className="flex flex-col gap-3">
                             {footerLinks.institucional.map((link) => (
                                 <li key={link.label}>
@@ -73,7 +73,7 @@ export default function Footer() {
 
                     {/* Contact Column */}
                     <div>
-                        <h3 className="font-bold text-lg mb-6 text-[#F39200]">Fale Conosco</h3>
+                        <h3 className="font-bold text-lg mb-6 text-white">Fale Conosco</h3>
                         <ul className="flex flex-col gap-4">
                             {footerLinks.contato.map((item, i) => (
                                 <li key={i}>
@@ -81,7 +81,7 @@ export default function Footer() {
                                         href={item.href}
                                         className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group"
                                     >
-                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-[#F39200]/20 group-hover:text-[#F39200] transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/20 group-hover:text-white transition-colors">
                                             <item.icon size={14} />
                                         </div>
                                         <span className="text-sm">{item.text}</span>
@@ -93,20 +93,28 @@ export default function Footer() {
 
                     {/* Newsletter Column (Optional) */}
                     <div className="flex flex-col gap-4">
-                        <h3 className="font-bold text-lg mb-2 text-[#F39200]">Novidades</h3>
+                        <h3 className="font-bold text-lg mb-2 text-white">Novidades</h3>
                         <p className="text-white/60 text-sm">Receba notícias do mercado de construção.</p>
-                        <form className="flex flex-col gap-3">
+                        <form
+                            className="flex flex-col gap-3 mt-2"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleScroll(e, '#contato');
+                            }}
+                        >
                             <input
                                 type="email"
                                 placeholder="Seu e-mail"
-                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-[#F39200] transition-colors"
+                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="bg-[#F39200] text-white font-bold text-sm py-3 rounded-lg hover:bg-[#e08600] transition-colors"
+                                className="group/btn relative overflow-hidden bg-white text-black font-bold text-sm py-3 rounded-lg border border-white mix-blend-screen transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:text-white hover:backdrop-blur-md"
                             >
-                                Inscrever-se
+                                {/* Shimmer on hover */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
+                                <span className="relative z-10">Inscrever-se</span>
                             </button>
                         </form>
                     </div>

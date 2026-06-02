@@ -91,7 +91,7 @@ export default function Differentials() {
             id="diferenciais"
             className="relative overflow-hidden"
             style={{
-                background: "linear-gradient(135deg, #F39200 0%, #E08600 50%, #C97800 100%)",
+                background: "linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%)",
             }}
         >
             {/* Diagonal accent line */}

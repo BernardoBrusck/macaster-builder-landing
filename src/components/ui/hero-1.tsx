@@ -114,7 +114,8 @@ export function HeroSection() {
                     loop
                     muted
                     playsInline
-                    preload="metadata"
+                    preload="auto"
+                    poster="/poster.jpg"
                     onCanPlay={() => setVideoLoaded(true)}
                     className={cn(
                         "w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity]",
@@ -192,12 +193,14 @@ export function HeroSection() {
                                 </span>
                             </Button>
 
-                            {/* Button 2: Cotar Materiais (Primary Orange) */}
+                            {/* Button 2: Cotar Materiais (Glass) */}
                             <Button
-                                className="group/btn relative h-11 pointer-events-auto rounded-full border border-primary bg-primary px-6 py-2.5 text-sm font-bold text-secondary-foreground transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.1] hover:text-white hover:backdrop-blur-md"
+                                className="group/btn relative h-11 pointer-events-auto rounded-full border border-white bg-white px-6 py-2.5 text-sm font-bold text-black mix-blend-screen transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white hover:backdrop-blur-md"
                                 onClick={(e) => handleScroll(e, '#contato')}
                             >
-                                <span className="flex items-center justify-center gap-2.5">
+                                {/* Shimmer on hover */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none rounded-full" />
+                                <span className="relative z-10 flex items-center justify-center gap-2.5">
                                     Cotar Materiais
                                     <ArrowRightIcon className="size-4" />
                                 </span>
@@ -229,24 +232,17 @@ export function LogosSection() {
 }
 
 const logos = [
-    {
-        src: "https://storage.efferd.com/logo/supabase-wordmark.svg",
-        alt: "ArcelorMittal",
-    },
-    {
-        src: "https://storage.efferd.com/logo/openai-wordmark.svg",
-        alt: "Votorantim",
-    },
-    {
-        src: "https://storage.efferd.com/logo/turso-wordmark.svg",
-        alt: "InterCement",
-    },
-    {
-        src: "https://storage.efferd.com/logo/vercel-wordmark.svg",
-        alt: "Duratex",
-    },
-    {
-        src: "https://storage.efferd.com/logo/github-wordmark.svg",
-        alt: "Eucatex",
-    },
+    { alt: "Sinercon Construtora", src: "/logos-parceiros/Sinercon-LogoB.png.webp", href: "https://sinerconconstrutora.com.br/", className: "h-10 md:h-12 rounded-lg", disableFilter: true },
+    { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.png", href: "#", className: "h-6 md:h-8" },
+    { alt: "Construtora Medeli", src: "/logos-parceiros/Médeli.png", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
+    { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.png", href: "#", className: "h-8 md:h-10" },
+    { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.png", href: "#", className: "h-8 md:h-10" },
+    { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.png", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
+    { alt: "Construtora Viplan", src: "/logos-parceiros/logo-2023.png", href: "https://viplan.com.br/", className: "h-10 md:h-12" },
+    { alt: "Gart Empreendimentos", src: "/logos-parceiros/white-logo.webp", href: "#", className: "h-5 md:h-6" },
+    { alt: "Grupo Estrutura", src: "/logos-parceiros/grupo estrutura.svg", href: "https://grupoestrutura.com.br/", className: "h-4 md:h-5" },
+    { alt: "Torresani", src: "/logos-parceiros/torresani.webp", href: "https://torresani.com.br/", className: "h-10 md:h-12" },
+    { alt: "Trapp Ferreira", src: "/logos-parceiros/TRAPP FERREIRA.png", href: "#", className: "h-10 md:h-12" },
+    { alt: "Copas Engenharia", src: "/logos-parceiros/copas-logo.svg", href: "#", className: "h-10 md:h-12" },
+    { alt: "Granada Construtora", src: "/logos-parceiros/logo-granada.png", href: "https://granadaconstrutora.com.br/", className: "h-8 md:h-10 invert hue-rotate-180", disableFilter: true },
 ];

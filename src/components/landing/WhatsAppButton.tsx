@@ -2,7 +2,7 @@ import { MessageCircle } from "lucide-react";
 
 const WhatsAppButton = () => {
   // Placeholder number - will be updated later
-  const whatsappNumber = "5500000000000";
+  const whatsappNumber = "5547997027016";
   const message = encodeURIComponent("Olá! Gostaria de mais informações sobre os materiais da Macaster.");
 
   return (

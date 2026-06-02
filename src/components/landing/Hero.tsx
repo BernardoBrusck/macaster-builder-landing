@@ -12,16 +12,15 @@ const Hero = () => {
   };
 
   const phrases = [
-    "Concreto Usinado",
-    "Madeiras para Construção",
-    "Compensados Especiais",
-    "Insumos Industriais",
-    "Materiais Essenciais",
-    "Soluções Estruturais",
-    "Itens de Acabamento",
-    "Demandas de Obra",
-    "Negociações de Insumos",
-    "Recursos Logísticos"
+    "Compensados para formas",
+    "Madeira para construção",
+    "Pinus e eucalipto tratado",
+    "Tapumes e palanques especiais",
+    "Concreto usinado",
+    "Tintas e acabamentos",
+    "Impermeabilizantes",
+    "Insumos para canteiro",
+    "Redução de custos"
   ];
 
   const MotionButton = motion(Button);
@@ -39,8 +38,8 @@ const Hero = () => {
         >
           <source src="/background-video.mp4" type="video/mp4" />
         </video>
-        {/* Dark Overlay - Blue Tint */}
-        <div className="absolute inset-0 bg-[#000d26]/85" />
+        {/* Dark Overlay - Minimalist Black Tint */}
+        <div className="absolute inset-0 bg-black/85" />
       </div>
 
       {/* Content - Left Aligned */}
@@ -54,9 +53,12 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Fornecimento especializado e estratégico de{" "}
+              MACASTER GESTOR
+              <br/>
+              <span className="text-xl md:text-3xl lg:text-4xl font-normal text-muted-foreground mt-4 block">
+                Soluções estratégicas em suprimentos de
+              </span>
             </motion.span>
-            <br className="hidden md:block" />
             <span className="text-primary inline-block min-h-[1.2em] text-2xl md:text-3xl lg:text-4xl mt-2 block">
               <Typewriter
                 text={phrases}
@@ -73,8 +75,8 @@ const Hero = () => {
             <MotionButton
               size="lg"
               onClick={() => scrollToSection("#contato")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 px-8 text-lg shadow-xl"
-              whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(243, 146, 0, 0.5)" }}
+              className="bg-gradient-to-r from-white to-gray-300 hover:from-gray-200 hover:to-gray-400 text-black font-bold h-14 px-8 text-lg shadow-xl border border-white/50"
+              whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(255, 255, 255, 0.4)" }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}

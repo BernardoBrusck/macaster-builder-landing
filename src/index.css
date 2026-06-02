@@ -6,60 +6,58 @@
 
 @layer base {
   :root {
-    /* Macaster Color Palette */
-    --background: 217 58% 9%;
-    /* #0B1221 - Azul Marinho Profundo */
-    --foreground: 210 40% 98%;
-    /* #F8FAFC - Branco/Cinza Claro */
+    /* Macaster Design System - Minimalist Corporate Black */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
 
-    --card: 217 50% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 217 50% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 36 100% 48%;
-    /* #F39200 - Laranja Industrial */
-    --primary-foreground: 217 58% 9%;
+    --primary: 0 0% 98%;
+    /* Branco Puro para Alto Contraste */
+    --primary-foreground: 0 0% 9%;
 
-    --secondary: 217 40% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217 32% 20%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 36 100% 48%;
-    --accent-foreground: 217 58% 9%;
+    --accent: 0 0% 98%;
+    --accent-foreground: 0 0% 9%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217 30% 22%;
-    --input: 217 30% 22%;
-    --ring: 36 100% 48%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 98%;
 
-    --radius: 1rem;
+    --radius: 0.5rem; /* Menos arredondado para estilo mais sério e minimalista */
 
     /* Glassmorphism */
-    --glass: 217 50% 15% / 0.6;
-    --glass-border: 217 30% 30% / 0.3;
+    --glass: 0 0% 5% / 0.6;
+    --glass-border: 0 0% 20% / 0.3;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(36 100% 48%), hsl(28 100% 55%));
-    --gradient-dark: linear-gradient(180deg, hsl(217 58% 9%), hsl(217 58% 6%));
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 60%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 2%), hsl(0 0% 0%));
 
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(36 100% 48% / 0.3);
-    --shadow-soft: 0 10px 40px hsl(217 58% 5% / 0.5);
+    --shadow-glow: 0 0 30px hsl(0 0% 100% / 0.1);
+    --shadow-soft: 0 10px 40px hsl(0 0% 0% / 0.8);
 
-    --sidebar-background: 217 58% 9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 36 100% 48%;
-    --sidebar-primary-foreground: 217 58% 9%;
-    --sidebar-accent: 217 40% 18%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 30% 22%;
-    --sidebar-ring: 36 100% 48%;
+    --sidebar-background: 0 0% 2%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 0 0% 98%;
   }
 }
 

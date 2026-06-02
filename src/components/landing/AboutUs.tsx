@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Building2, Handshake, TrendingUp, ShieldCheck } from "lucide-react";
+import { InfiniteSlider } from "@/components/ui/infinite-slider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +26,11 @@ function useCounter(end: number, suffix = "", trigger?: boolean) {
     }, [trigger, end]);
 
     return { ref, display: `${value}${suffix}` };
+}
+
+function StatCounter({ end, suffix = "", trigger = false }: { end: number, suffix?: string, trigger?: boolean }) {
+    const { ref, display } = useCounter(end, suffix, trigger);
+    return <span ref={ref}>{display}</span>;
 }
 
 /* ─── Mouse Trail Component Removed (Moved to Global) ─── */
@@ -84,10 +90,10 @@ function SpotlightCard({ icon: Icon, title, description }: { icon: any, title: s
 
 /* ─── Data ─── */
 const stats = [
-    { value: 150, suffix: "M+", prefix: "R$ ", label: "em materiais negociados" },
-    { value: 200, suffix: "+", prefix: "", label: "obras atendidas" },
-    { value: 98, suffix: "%", prefix: "", label: "clientes recorrentes" },
-    { value: 15, suffix: "+", prefix: "", label: "anos de mercado" },
+    { value: 10, suffix: "M+", prefix: "R$ ", label: "em materiais negociados" },
+    { value: 1000, suffix: "+", prefix: "", label: "clientes atendidos" },
+    { value: 100, suffix: "%", prefix: "", label: "foco em resultado" },
+    { value: 5, suffix: "+", prefix: "", label: "anos de mercado" },
 ];
 
 const pillars = [
@@ -117,6 +123,16 @@ const pillars = [
     },
 ];
 
+const productImages = [
+    { src: "/produtos/plywood_forms_1780405839039.png", alt: "Compensados para formas de concreto" },
+    { src: "/produtos/wood_beams_1780405855627.png", alt: "Madeira para construção civil" },
+    { src: "/produtos/treated_eucalyptus_1780405868029.png", alt: "Pinus e eucalipto tratado" },
+    { src: "/produtos/hoarding_better_1780415767982.png", alt: "Tapumes e palanques especiais" },
+    { src: "/produtos/concrete_pouring_1780405893312.png", alt: "Concreto usinado" },
+    { src: "/produtos/paint_buckets_1780405907370.png", alt: "Tintas e acabamentos" },
+    { src: "/produtos/mortar_bags_1780405920116.png", alt: "Impermeabilizantes e argamassas" },
+];
+
 export default function AboutUs() {
     const sectionRef = useRef<HTMLElement>(null);
     const headingRef = useRef<HTMLDivElement>(null);
@@ -126,9 +142,6 @@ export default function AboutUs() {
     const imageRef = useRef<HTMLDivElement>(null);
     const statsRef = useRef<HTMLDivElement>(null);
     const [countersActive, setCountersActive] = useState(false);
-
-    // Counter instances
-    const counters = stats.map((s) => useCounter(s.value, s.suffix, countersActive));
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -273,8 +286,8 @@ export default function AboutUs() {
 
             {/* ─── Subtle background decoration ─── */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#F39200]/[0.04] blur-[100px]" />
-                <div className="absolute -left-60 bottom-20 h-[500px] w-[500px] rounded-full bg-[#F39200]/[0.03] blur-[100px]" />
+                <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-black/[0.04] blur-[100px]" />
+                <div className="absolute -left-60 bottom-20 h-[500px] w-[500px] rounded-full bg-black/[0.03] blur-[100px]" />
             </div>
 
             {/* ─── Main content block ─── */}
@@ -284,14 +297,14 @@ export default function AboutUs() {
                     <div>
                         <div ref={headingRef}>
                             <div className="mb-6">
-                                <span className="inline-block border-b-4 border-[#F39200] pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#F39200]">
+                                <span className="inline-block border-b-4 border-zinc-900 pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-zinc-900">
                                     Sobre Nós
                                 </span>
                             </div>
 
                             <h2 className="text-balance text-2xl font-bold leading-[1.12] tracking-[-0.03em] text-gray-900 sm:text-3xl lg:text-[2.25rem]">
                                 Conectamos quem constrói{" "}
-                                <span className="text-[#F39200]">
+                                <span className="text-gray-500">
                                     a quem fornece
                                 </span>
                             </h2>
@@ -301,17 +314,15 @@ export default function AboutUs() {
                             <p className="text-[0.9rem] leading-relaxed text-gray-600">
                                 A{" "}
                                 <strong className="font-semibold text-gray-900">
-                                    Macaster
+                                    Macaster Gestor
                                 </strong>{" "}
-                                é uma representação comercial especializada no
-                                setor de construção civil. Atuamos como ponte
-                                entre construtoras e os maiores fornecedores de
-                                concreto usinado, madeiras e compensados.
+                                é especialista em suprimentos para a construção civil. Atuamos como ponte entre construtoras, incorporadoras, engenheiros, arquitetos e os melhores fornecedores.
                             </p>
                             <p className="text-[0.9rem] leading-relaxed text-gray-600">
-                                Negociamos condições exclusivas que geram
-                                economia real para cada obra — sem burocracia,
-                                com agilidade e total transparência.
+                                Minha atuação vai além da venda: trabalho na identificação das necessidades reais de cada obra para entregar soluções que gerem resultado, evitando problemas comuns como retrabalho, atrasos de cronograma, desperdícios e compras inadequadas.
+                            </p>
+                            <p className="text-[0.9rem] leading-relaxed text-gray-600">
+                                Acredito que o melhor fornecedor não é o que vende mais barato, mas o que entrega a solução certa para que a obra avance com segurança, eficiência e previsibilidade.
                             </p>
                         </div>
                     </div>
@@ -335,18 +346,16 @@ export default function AboutUs() {
                 </div>
 
                 {/* ─── Stats counter strip ─── */}
-                <div className="relative mx-auto max-w-5xl px-6 lg:px-8 mt-16 md:mt-20">
+                <div className="relative mx-auto max-w-5xl px-6 lg:px-8 mt-10 md:mt-12 mb-16">
                     <div
                         ref={statsRef}
-                        className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-10 border-y border-gray-100"
+                        className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-8 border-y border-gray-100"
                     >
                         {stats.map((stat, i) => (
                             <div key={i} className="text-center group">
-                                <div className="text-2xl md:text-3xl font-bold text-gray-900 tabular-nums tracking-tight group-hover:text-[#F39200] transition-colors duration-300">
+                                <div className="text-2xl md:text-3xl font-bold text-gray-900 tabular-nums tracking-tight group-hover:text-gray-500 transition-colors duration-300">
                                     {stat.prefix}
-                                    <span ref={counters[i].ref}>
-                                        {counters[i].display}
-                                    </span>
+                                    <StatCounter end={stat.value} suffix={stat.suffix} trigger={countersActive} />
                                 </div>
                                 <div className="mt-1.5 text-xs font-medium text-gray-500 uppercase tracking-wide">
                                     {stat.label}
@@ -356,6 +365,34 @@ export default function AboutUs() {
                     </div>
                 </div>
             </div>
+
+            {/* ─── Products Carousel ─── */}
+            <div className="relative w-full overflow-hidden pb-20">
+                <div className="mb-8 text-center">
+                    <span className="inline-block border-b-4 border-zinc-900 pb-1.5 text-xs font-bold uppercase tracking-[0.2em] text-zinc-900">
+                        Nossos Produtos
+                    </span>
+                </div>
+                <div className="[mask-image:linear-gradient(to_right,transparent,black_2%,black_98%,transparent)]">
+                    <InfiniteSlider gap={24} speed={40}>
+                            {productImages.map((product, idx) => (
+                                <div key={idx} className="relative group w-[280px] h-[320px] md:w-[320px] md:h-[380px] rounded-2xl overflow-hidden shrink-0 shadow-lg">
+                                    <img 
+                                        src={product.src} 
+                                        alt={product.alt} 
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                                        <h3 className="text-white font-semibold text-lg leading-tight">
+                                            {product.alt}
+                                        </h3>
+                                    </div>
+                                </div>
+                            ))}
+                        </InfiniteSlider>
+                    </div>
+                </div>
         </section>
     );
 }

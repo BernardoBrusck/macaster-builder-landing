@@ -2,10 +2,13 @@ import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import { cn } from "@/lib/utils";
 
 type Logo = {
-    src: string;
+    src?: string;
     alt: string;
+    href?: string;
     width?: number;
     height?: number;
+    className?: string;
+    disableFilter?: boolean;
 };
 
 type LogoCloudProps = React.ComponentProps<"div"> & {
@@ -21,18 +24,38 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
                 className
             )}
         >
-            <InfiniteSlider gap={42} reverse speed={40}>
-                {logos.map((logo) => (
-                    <img
-                        alt={logo.alt}
-                        className="pointer-events-none h-4 select-none md:h-5 brightness-0 invert"
-                        height={logo.height || "auto"}
-                        key={`logo-${logo.alt}`}
-                        loading="lazy"
-                        src={logo.src}
-                        width={logo.width || "auto"}
-                    />
-                ))}
+            <InfiniteSlider gap={80} reverse speed={40}>
+                {logos.map((logo) => {
+                    const content = logo.src ? (
+                        <img
+                            alt={logo.alt}
+                            className={cn(
+                                "select-none transition-all duration-300 object-contain", 
+                                !logo.disableFilter && "brightness-0 invert",
+                                logo.className || "h-8 md:h-10",
+                                logo.href ? "hover:scale-110" : ""
+                            )}
+                            height={logo.height || "auto"}
+                            loading="lazy"
+                            src={logo.src}
+                            width={logo.width || "auto"}
+                        />
+                    ) : (
+                        <span className="text-white/60 font-bold uppercase tracking-widest text-sm whitespace-nowrap opacity-70">
+                            {logo.alt}
+                        </span>
+                    );
+
+                    return logo.href ? (
+                        <a key={`logo-${logo.alt}`} href={logo.href} target="_blank" rel="noopener noreferrer" className="pointer-events-auto cursor-pointer block">
+                            {content}
+                        </a>
+                    ) : (
+                        <div key={`logo-${logo.alt}`} className="pointer-events-none">
+                            {content}
+                        </div>
+                    );
+                })}
             </InfiniteSlider>
         </div>
     );

@@ -117,7 +117,7 @@ export default function ContactCTA() {
 
         // Construct message
         const message = `Olá, me chamo ${name}, gostaria de cotar para obra ${type}.`;
-        const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/5547997027016?text=${encodeURIComponent(message)}`;
 
         // Open WhatsApp
         window.open(whatsappUrl, '_blank');
@@ -145,7 +145,7 @@ export default function ContactCTA() {
                     className="relative overflow-hidden rounded-[2.5rem] shadow-2xl"
                     style={{
                         background:
-                            "linear-gradient(135deg, #F39200 0%, #FFAB2E 50%, #F39200 100%)",
+                            "linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%)",
                     }}
                 >
                     {/* ... pattern ... */}
@@ -222,7 +222,7 @@ export default function ContactCTA() {
                                     <input
                                         type="tel"
                                         name="phone"
-                                        placeholder="WhatsApp (11) 99999-9999"
+                                        placeholder="WhatsApp (47) 99702-7016"
                                         required
                                         className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm font-medium focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all duration-300"
                                     />
