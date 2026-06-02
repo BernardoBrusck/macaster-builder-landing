@@ -36,7 +36,7 @@ const Hero = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="/background-video.mp4" type="video/mp4" />
+          <source src="/background-video-opt.mp4" type="video/mp4" />
         </video>
         {/* Dark Overlay - Minimalist Black Tint */}
         <div className="absolute inset-0 bg-black/85" />
