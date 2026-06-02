@@ -122,7 +122,7 @@ export function HeroSection() {
                         videoLoaded ? "opacity-100" : "opacity-0"
                     )}
                 >
-                    <source src="/background-video.mp4" type="video/mp4" />
+                    <source src="/background-video-opt.mp4" type="video/mp4" />
                 </video>
             </div>
 
@@ -233,16 +233,16 @@ export function LogosSection() {
 
 const logos = [
     { alt: "Sinercon Construtora", src: "/logos-parceiros/Sinercon-LogoB.png.webp", href: "https://sinerconconstrutora.com.br/", className: "h-10 md:h-12 rounded-lg", disableFilter: true },
-    { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.png", href: "#", className: "h-6 md:h-8" },
-    { alt: "Construtora Medeli", src: "/logos-parceiros/Médeli.png", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
-    { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.png", href: "#", className: "h-8 md:h-10" },
-    { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.png", href: "#", className: "h-8 md:h-10" },
-    { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.png", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
-    { alt: "Construtora Viplan", src: "/logos-parceiros/logo-2023.png", href: "https://viplan.com.br/", className: "h-10 md:h-12" },
+    { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.webp", href: "#", className: "h-6 md:h-8" },
+    { alt: "Construtora Medeli", src: "/logos-parceiros/medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
+    { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.webp", href: "#", className: "h-8 md:h-10" },
+    { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.webp", href: "#", className: "h-8 md:h-10" },
+    { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.webp", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
+    { alt: "Construtora Viplan", src: "/logos-parceiros/logo-2023.webp", href: "https://viplan.com.br/", className: "h-10 md:h-12" },
     { alt: "Gart Empreendimentos", src: "/logos-parceiros/white-logo.webp", href: "#", className: "h-5 md:h-6" },
     { alt: "Grupo Estrutura", src: "/logos-parceiros/grupo estrutura.svg", href: "https://grupoestrutura.com.br/", className: "h-4 md:h-5" },
     { alt: "Torresani", src: "/logos-parceiros/torresani.webp", href: "https://torresani.com.br/", className: "h-10 md:h-12" },
-    { alt: "Trapp Ferreira", src: "/logos-parceiros/TRAPP FERREIRA.png", href: "#", className: "h-10 md:h-12" },
+    { alt: "Trapp Ferreira", src: "/logos-parceiros/TRAPP FERREIRA.webp", href: "#", className: "h-10 md:h-12" },
     { alt: "Copas Engenharia", src: "/logos-parceiros/copas-logo.svg", href: "#", className: "h-10 md:h-12" },
-    { alt: "Granada Construtora", src: "/logos-parceiros/logo-granada.png", href: "https://granadaconstrutora.com.br/", className: "h-8 md:h-10 invert hue-rotate-180", disableFilter: true },
+    { alt: "Granada Construtora", src: "/logos-parceiros/logo-granada.webp", href: "https://granadaconstrutora.com.br/", className: "h-8 md:h-10 invert hue-rotate-180", disableFilter: true },
 ];

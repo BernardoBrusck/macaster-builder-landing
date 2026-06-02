@@ -124,13 +124,13 @@ const pillars = [
 ];
 
 const productImages = [
-    { src: "/produtos/plywood_forms_1780405839039.png", alt: "Compensados para formas de concreto" },
-    { src: "/produtos/wood_beams_1780405855627.png", alt: "Madeira para construção civil" },
-    { src: "/produtos/treated_eucalyptus_1780405868029.png", alt: "Pinus e eucalipto tratado" },
-    { src: "/produtos/hoarding_better_1780415767982.png", alt: "Tapumes e palanques especiais" },
-    { src: "/produtos/concrete_pouring_1780405893312.png", alt: "Concreto usinado" },
-    { src: "/produtos/paint_buckets_1780405907370.png", alt: "Tintas e acabamentos" },
-    { src: "/produtos/mortar_bags_1780405920116.png", alt: "Impermeabilizantes e argamassas" },
+    { src: "/produtos/plywood_forms_1780405839039.webp", alt: "Compensados para formas de concreto" },
+    { src: "/produtos/wood_beams_1780405855627.webp", alt: "Madeira para construção civil" },
+    { src: "/produtos/treated_eucalyptus_1780405868029.webp", alt: "Pinus e eucalipto tratado" },
+    { src: "/produtos/hoarding_better_1780415767982.webp", alt: "Tapumes e palanques especiais" },
+    { src: "/produtos/concrete_pouring_1780405893312.webp", alt: "Concreto usinado" },
+    { src: "/produtos/paint_buckets_1780405907370.webp", alt: "Tintas e acabamentos" },
+    { src: "/produtos/mortar_bags_1780405920116.webp", alt: "Impermeabilizantes e argamassas" },
 ];
 
 export default function AboutUs() {

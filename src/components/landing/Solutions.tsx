@@ -13,7 +13,7 @@ const solutions = [
     title: "Compensados e Madeiras",
     description:
       "Qualidade estrutural para todas as etapas da obra. Fornecemos compensados para formas, madeiras certificadas, pinus e eucalipto tratado com a melhor relação custo-benefício.",
-    image: "/images/construction_materials.png",
+    image: "/produtos/construction_materials_1780353490338.webp",
     features: ["Compensados", "Pinus tratado", "Eucalipto"],
   },
   {
@@ -21,7 +21,7 @@ const solutions = [
     title: "Concreto Usinado",
     description:
       "Entrega programada com precisão logística. Parcerias estratégicas para garantir qualidade constante, pontualidade e segurança estrutural.",
-    image: "/images/hero_bg.png",
+    image: "/produtos/hero_bg_1780353477901.webp",
     features: ["Bombeável", "Convencional", "Especial"],
   },
   {
@@ -29,7 +29,7 @@ const solutions = [
     title: "Tintas e Insumos",
     description:
       "Variedade completa para cada necessidade. Tintas, acabamentos, impermeabilizantes, argamassas e insumos para canteiro.",
-    image: "/images/paints_materials.png",
+    image: "/produtos/paints_materials_1780354006837.webp",
     features: ["Tintas", "Impermeabilizantes", "Acabamentos"],
   },
 ];
