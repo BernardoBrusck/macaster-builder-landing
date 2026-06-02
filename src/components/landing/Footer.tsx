@@ -105,7 +105,7 @@ const Footer = () => {
             © {currentYear} Macaster. Todos os direitos reservados.
           </p>
           <p className="text-xs text-muted-foreground/50">
-            Desenvolvido com ❤️ em Joinville, SC
+            Desenvolvido pela <a href="https://brusck.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRUSCK</a>
           </p>
         </div>
       </div>
