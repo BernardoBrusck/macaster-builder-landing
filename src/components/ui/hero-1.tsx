@@ -9,12 +9,37 @@ export function HeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(false);
     const badgeRef = useRef<HTMLAnchorElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLParagraphElement>(null);
     const buttonsRef = useRef<HTMLDivElement>(null);
     const logosRef = useRef<HTMLDivElement>(null);
     const bordersRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const checkIsDesktop = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkIsDesktop();
+        window.addEventListener("resize", checkIsDesktop);
+        return () => window.removeEventListener("resize", checkIsDesktop);
+    }, []);
+
+    useEffect(() => {
+        if (isDesktop && videoRef.current) {
+            videoRef.current.defaultMuted = true;
+            videoRef.current.muted = true;
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    setVideoLoaded(true);
+                }).catch((error) => {
+                    console.log("Autoplay prevented or video load error:", error);
+                });
+            }
+        }
+    }, [isDesktop]);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -46,13 +71,13 @@ export function HeroSection() {
                 );
             }
 
-            // Title words animate in
+            // Title words animate in - Optimized for LCP performance
             if (titleRef.current) {
                 tl.fromTo(
                     titleRef.current,
-                    { opacity: 0, y: 60, filter: "blur(8px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.4 },
-                    0.5
+                    { opacity: 0, y: 30 },
+                    { opacity: 1, y: 0, duration: 0.6 },
+                    0.1
                 );
             }
 
@@ -104,26 +129,36 @@ export function HeroSection() {
 
     return (
         <section ref={sectionRef} className="relative w-full h-screen overflow-hidden flex flex-col">
-            {/* Fixed Background Video */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
+            {/* Fixed Background Video / Fallback Image */}
+            <div className="fixed inset-0 z-0 pointer-events-none bg-black">
+                {/* Fallback image visible under the video or if mobile/autoplay is blocked */}
+                <img 
+                    src="/produtos/hero_bg_1780353477901.webp" 
+                    alt="Canteiro de obras background"
+                    className="absolute inset-0 w-full h-full object-cover opacity-35 select-none pointer-events-none"
+                />
+                
                 {/* Dark Overlay - always visible */}
                 <div className="absolute inset-0 bg-black/70 z-10" />
-                <video
-                    ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    poster="/poster.jpg"
-                    onCanPlay={() => setVideoLoaded(true)}
-                    className={cn(
-                        "w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity]",
-                        videoLoaded ? "opacity-100" : "opacity-0"
-                    )}
-                >
-                    <source src="/background-video-opt.mp4" type="video/mp4" />
-                </video>
+                
+                {isDesktop && (
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        onCanPlay={() => setVideoLoaded(true)}
+                        onLoadedData={() => setVideoLoaded(true)}
+                        className={cn(
+                            "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity] z-0",
+                            videoLoaded ? "opacity-100" : "opacity-0"
+                        )}
+                    >
+                        <source src="/background-video-opt.mp4" type="video/mp4" />
+                    </video>
+                )}
             </div>
 
             {/* Content wrapper */}
@@ -186,6 +221,7 @@ export function HeroSection() {
                             <Button
                                 className="group/btn relative h-11 pointer-events-auto rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-6 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30"
                                 onClick={(e) => handleScroll(e, '#contato')}
+                                aria-label="Falar com especialista no WhatsApp"
                             >
                                 <span className="flex items-center justify-center gap-2.5">
                                     <PhoneCallIcon className="size-4" />
@@ -197,6 +233,7 @@ export function HeroSection() {
                             <Button
                                 className="group/btn relative h-11 pointer-events-auto rounded-full border border-white bg-white px-6 py-2.5 text-sm font-bold text-black mix-blend-screen transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white hover:backdrop-blur-md"
                                 onClick={(e) => handleScroll(e, '#contato')}
+                                aria-label="Fazer cotação de materiais"
                             >
                                 {/* Shimmer on hover */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none rounded-full" />
@@ -221,8 +258,8 @@ export function HeroSection() {
 export function LogosSection() {
     return (
         <div className="space-y-3 border-t border-white/[0.08] pt-5">
-            <h2 className="text-center text-sm font-medium text-white/40 uppercase tracking-[0.15em]">
-                Parceiros de <span className="text-white/70">confiança</span>
+            <h2 className="text-center text-sm font-medium text-white/65 uppercase tracking-[0.15em]">
+                Parceiros de <span className="text-white/75">confiança</span>
             </h2>
             <div className="relative z-10 mx-auto max-w-4xl">
                 <LogoCloud logos={logos} />
@@ -234,7 +271,7 @@ export function LogosSection() {
 const logos = [
     { alt: "Sinercon Construtora", src: "/logos-parceiros/Sinercon-LogoB.png.webp", href: "https://sinerconconstrutora.com.br/", className: "h-10 md:h-12 rounded-lg", disableFilter: true },
     { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.webp", href: "#", className: "h-6 md:h-8" },
-    { alt: "Construtora Medeli", src: "/logos-parceiros/medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
+    { alt: "Construtora Medeli", src: "/logos-parceiros/Medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
     { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.webp", href: "#", className: "h-8 md:h-10" },
     { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.webp", href: "#", className: "h-8 md:h-10" },
     { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.webp", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
