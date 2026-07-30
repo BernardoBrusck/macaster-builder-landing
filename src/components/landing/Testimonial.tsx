@@ -22,7 +22,7 @@ const Testimonial = () => {
               </div>
               <div>
                 <div className="font-semibold text-foreground">Kevin Eduardo</div>
-                <div className="text-sm text-muted-foreground">Especialista — Macaster Gestor</div>
+                <div className="text-sm text-muted-foreground">Especialista — Macaster</div>
               </div>
             </div>
           </div>

@@ -181,8 +181,8 @@ export function HeroSection() {
                     <a
                         ref={badgeRef}
                         className="group mx-auto flex w-fit items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] backdrop-blur-md px-3.5 py-1 opacity-0 transition-colors duration-300 hover:bg-white/[0.1] hover:border-white/[0.15] cursor-pointer relative z-30 pointer-events-auto"
-                        href="#solucoes"
-                        onClick={(e) => handleScroll(e, '#solucoes')}
+                        href="#sobre"
+                        onClick={(e) => handleScroll(e, '#sobre')}
                     >
                         <HardHat className="size-3 text-primary" />
                         <span className="text-[11px] text-white/70 font-medium tracking-wide">fornecimento estratégico para sua obra</span>
@@ -195,41 +195,28 @@ export function HeroSection() {
                         ref={titleRef}
                         className="text-balance text-center text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white opacity-0 sm:text-4xl md:text-5xl lg:text-[3.5rem]"
                     >
-                        Materiais que Constroem <br />
+                        Toda Grande Construção <br />
                         <span
                             className="bg-clip-text text-transparent"
                             style={{ backgroundImage: 'var(--gradient-primary)' }}
                         >
-                            Resultados Sólidos
+                            Começa com Escolhas Certas
                         </span>
                     </h1>
 
                     {/* Subtitle */}
                     <p
                         ref={subtitleRef}
-                        className="mx-auto max-w-md text-center text-[0.875rem] leading-relaxed text-white/60 opacity-0 sm:text-base md:text-lg"
+                        className="mx-auto max-w-xl text-center text-xs sm:text-sm md:text-base leading-relaxed text-white/65 opacity-0 font-normal"
                     >
-                        Conectando sua obra aos melhores fornecedores <br className="hidden sm:block" />
-                        de concreto, madeiras e compensados
+                        Soluções em suprimentos estratégicos para a construção civil. <br className="hidden sm:block" />
+                        Conectando sua obra aos melhores fornecedores de concreto, madeiras e compensados.
                     </p>
 
                     {/* Buttons with Liquid Glass Effect */}
                     <div className="relative z-30 flex flex-row flex-wrap items-center justify-center gap-3 pt-2">
-
                         <div ref={buttonsRef} className="contents">
-                            {/* Button 1: Cotar Materiais (Glass Effect) */}
-                            <Button
-                                className="group/btn relative h-11 pointer-events-auto rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-6 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30"
-                                onClick={(e) => handleScroll(e, '#contato')}
-                                aria-label="Falar com especialista no WhatsApp"
-                            >
-                                <span className="flex items-center justify-center gap-2.5">
-                                    <PhoneCallIcon className="size-4" />
-                                    Falar no WhatsApp
-                                </span>
-                            </Button>
-
-                            {/* Button 2: Cotar Materiais (Glass) */}
+                            {/* Button: Cotar Materiais (Glass) */}
                             <Button
                                 className="group/btn relative h-11 pointer-events-auto rounded-full border border-white bg-white px-6 py-2.5 text-sm font-bold text-black mix-blend-screen transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white hover:backdrop-blur-md"
                                 onClick={(e) => handleScroll(e, '#contato')}
@@ -269,13 +256,12 @@ export function LogosSection() {
 }
 
 const logos = [
-    { alt: "Sinercon Construtora", src: "/logos-parceiros/Sinercon-LogoB.png.webp", href: "https://sinerconconstrutora.com.br/", className: "h-10 md:h-12 rounded-lg", disableFilter: true },
     { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.webp", href: "#", className: "h-6 md:h-8" },
     { alt: "Construtora Medeli", src: "/logos-parceiros/Medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
     { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.webp", href: "#", className: "h-8 md:h-10" },
     { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.webp", href: "#", className: "h-8 md:h-10" },
     { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.webp", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
-    { alt: "Construtora Viplan", src: "/logos-parceiros/logo-2023.webp", href: "https://viplan.com.br/", className: "h-10 md:h-12" },
+    { alt: "Vetter Empreendimentos", src: "/logos-parceiros/logo-vetter-footer.png", href: "https://vetter.com.br/", className: "h-10 md:h-12", disableFilter: true },
     { alt: "Gart Empreendimentos", src: "/logos-parceiros/white-logo.webp", href: "#", className: "h-5 md:h-6" },
     { alt: "Grupo Estrutura", src: "/logos-parceiros/grupo estrutura.svg", href: "https://grupoestrutura.com.br/", className: "h-4 md:h-5" },
     { alt: "Torresani", src: "/logos-parceiros/torresani.webp", href: "https://torresani.com.br/", className: "h-10 md:h-12" },

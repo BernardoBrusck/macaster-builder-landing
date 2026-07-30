@@ -1,12 +1,11 @@
 const partners = [
-  { name: "Sinercon", fullName: "Sinercon Construtora", logo: "S" },
   { name: "Alicerce", fullName: "Alicerce Empreend.", logo: "A" },
   { name: "Medeli", fullName: "Construtora Medeli", logo: "M" },
   { name: "Stein", fullName: "Construtora Stein", logo: "S" },
   { name: "Embracol", fullName: "Embracol Construtora", logo: "E" },
   { name: "Xpcon", fullName: "Xpcon Empreend.", logo: "X" },
   { name: "Inovar", fullName: "Construtora Inovar", logo: "I" },
-  { name: "Viplan", fullName: "Construtora Viplan", logo: "V" },
+  { name: "Vetter", fullName: "Vetter Empreend.", logo: "V" },
   { name: "Isensee", fullName: "Isensee Empreend.", logo: "I" },
   { name: "Gart", fullName: "Gart Empreend.", logo: "G" },
   { name: "Estrutura", fullName: "Grupo Estrutura", logo: "E" },

@@ -90,8 +90,8 @@ function SpotlightCard({ icon: Icon, title, description }: { icon: any, title: s
 
 /* ─── Data ─── */
 const stats = [
-    { value: 10, suffix: "M+", prefix: "R$ ", label: "em materiais negociados" },
-    { value: 1000, suffix: "+", prefix: "", label: "clientes atendidos" },
+    { value: 10, suffix: "M+", prefix: "R$ ", label: "em representação de materiais" },
+    { value: 500, suffix: "+", prefix: "", label: "clientes atendidos" },
     { value: 100, suffix: "%", prefix: "", label: "foco em resultado" },
     { value: 5, suffix: "+", prefix: "", label: "anos de mercado" },
 ];
@@ -124,12 +124,11 @@ const pillars = [
 ];
 
 const productImages = [
-    { src: "/produtos/plywood_forms_1780405839039.webp", alt: "Compensados para formas de concreto" },
+    { src: "/produtos/compensado-plastificado-formas.webp", alt: "Compensados para formas de concreto" },
     { src: "/produtos/wood_beams_1780405855627.webp", alt: "Madeira para construção civil" },
-    { src: "/produtos/treated_eucalyptus_1780405868029.webp", alt: "Pinus e eucalipto tratado" },
+    { src: "/produtos/treated_eucalyptus_1780405868029.webp", alt: "Pinus" },
     { src: "/produtos/hoarding_better_1780415767982.webp", alt: "Tapumes e palanques especiais" },
-    { src: "/produtos/concrete_pouring_1780405893312.webp", alt: "Concreto usinado" },
-    { src: "/produtos/paint_buckets_1780405907370.webp", alt: "Tintas e acabamentos" },
+    { src: "/produtos/estoque-compensados-madeira.webp", alt: "Compensados resinados e estruturais" },
     { src: "/produtos/mortar_bags_1780405920116.webp", alt: "Impermeabilizantes e argamassas" },
 ];
 
@@ -314,7 +313,7 @@ export default function AboutUs() {
                             <p className="text-[0.9rem] leading-relaxed text-gray-600">
                                 A{" "}
                                 <strong className="font-semibold text-gray-900">
-                                    Macaster Gestor
+                                    Macaster
                                 </strong>{" "}
                                 é especialista em suprimentos para a construção civil. Atuamos como ponte entre construtoras, incorporadoras, engenheiros, arquitetos e os melhores fornecedores.
                             </p>
@@ -333,8 +332,8 @@ export default function AboutUs() {
                         className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/10 aspect-[4/3] bg-gray-100"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
-                            alt="Canteiro de obras moderno com equipe profissional"
+                            src="/produtos/image-sobre-nos.webp"
+                            alt="Equipe profissional no canteiro de obras"
                             width={800}
                             height={600}
                             loading="lazy"

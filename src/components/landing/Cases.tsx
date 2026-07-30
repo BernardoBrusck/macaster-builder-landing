@@ -6,53 +6,25 @@ import {
 
 /* ─── Stats ─── */
 const stats: Stat[] = [
-  { value: "R$ 10M+", label: "Em materiais negociados" },
-  { value: "1.000+", label: "Clientes atendidos" },
+  { value: "R$ 10M+", label: "Em representação" },
+  { value: "500+", label: "Clientes atendidos" },
   { value: "5+", label: "Anos de mercado" },
 ];
 
 /* ─── Testimonials ─── */
 const testimonials: Testimonial[] = [
   {
-    name: "Carlos Eduardo",
-    title: "Diretor de Obras — Sinercon Construtora",
-    quote: "A Macaster transformou nossa cadeia de suprimentos. Reduzimos custos em 25% e nunca mais tivemos atraso por falta de material na obra.",
-    avatarSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-    rating: 5.0,
-  },
-  {
-    name: "Fernanda Ribeiro",
-    title: "Engenheira Civil — Alicerce Empreendimentos",
-    quote: "O acompanhamento contínuo e a transparência nos orçamentos são diferenciais que não encontramos em nenhum outro fornecedor.",
-    avatarSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
-    rating: 5.0,
-  },
-  {
-    name: "Roberto Almeida",
-    title: "Gerente de Compras — Construtora Stein",
-    quote: "Parceria sólida há mais de 3 anos. A escala de compra que a Macaster negocia é impossível de conseguir sozinho.",
-    avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
-    rating: 4.9,
-  },
-  {
-    name: "Ana Paula Costa",
-    title: "Sócia — Embracol Construtora",
-    quote: "Desde que começamos com a Macaster, a qualidade dos materiais melhorou e o preço caiu. É exatamente o que uma construtora precisa.",
-    avatarSrc: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
-    rating: 5.0,
-  },
-  {
-    name: "Marcos Henrique",
-    title: "CEO — Xpcon Empreendimentos",
-    quote: "Atendimento dedicado de verdade. Tenho um canal direto no WhatsApp e qualquer problema é resolvido em horas, não dias.",
-    avatarSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
-    rating: 4.8,
-  },
-  {
-    name: "Juliana Santos",
-    title: "Coordenadora de Projetos — Gart Empreendimentos",
-    quote: "A logística pontual da Macaster é impressionante. Em 15 obras simultâneas, zero atrasos por conta de entrega de material.",
+    name: "Julia",
+    title: "Construtora Medeli",
+    quote: "Foi ótima experiência trabalhando contigo como fornecedor, o que mais chama atenção é a rapidez no atendimento.",
     avatarSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80",
+    rating: 5.0,
+  },
+  {
+    name: "Karem Naiara",
+    title: "Vici Incorporadora",
+    quote: "É um profissional excelente, sempre disponível para nos atender da melhor forma. Demonstra proatividade, conduz as negociações de maneira equilibrada, buscando soluções que sejam benéficas para ambas as partes. Além disso, está sempre focado em oferecer o que há de melhor para o cliente, com comprometimento, agilidade e atenção às necessidades apresentadas.",
+    avatarSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
     rating: 5.0,
   },
 ];
@@ -61,16 +33,16 @@ const testimonials: Testimonial[] = [
 export default function Cases() {
   return (
     <ClientsSection
-      tagLabel="Clientes Satisfeitos"
+      tagLabel="Depoimentos Reais"
       title="Quem constrói com a Macaster, recomenda"
-      description="Mais de 1.000 clientes confiam na Macaster Gestor para fornecer materiais com qualidade, previsibilidade e foco em redução de custos."
+      description="Depoimentos reais de clientes que confiam na Macaster para fornecer materiais com qualidade, agilidade e excelência no atendimento."
       stats={stats}
       testimonials={testimonials}
       id="cases"
       primaryActionLabel="Solicitar Cotação"
       onPrimaryClick={() => document.querySelector('#contato')?.scrollIntoView({ behavior: 'smooth' })}
-      secondaryActionLabel="Ver Todos os Cases"
-      onSecondaryClick={() => document.querySelector('#testimonial-cards')?.scrollIntoView({ behavior: 'smooth' })}
+      secondaryActionLabel="Falar no WhatsApp"
+      onSecondaryClick={() => window.open('https://wa.me/5547997027016?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista.', '_blank')}
       className="bg-white"
     />
   );

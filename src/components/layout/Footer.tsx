@@ -1,5 +1,9 @@
-
+import { useEffect, useRef } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const footerLinks = {
     institucional: [
@@ -21,6 +25,35 @@ const footerLinks = {
 };
 
 export default function Footer() {
+    const footerRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!footerRef.current || !contentRef.current) return;
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                contentRef.current!.children,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: footerRef.current,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                    }
+                }
+            );
+        }, footerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement> | React.FormEvent<HTMLFormElement>, href: string) => {
         e.preventDefault();
         const element = document.querySelector(href);
@@ -30,14 +63,18 @@ export default function Footer() {
     };
 
     return (
-        <footer className="text-white pt-80 pb-8 border-t border-white/10 relative z-0" data-header-theme="dark">
-            <div className="container mx-auto px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <footer 
+            ref={footerRef}
+            className="text-white pt-80 pb-8 border-t border-white/10 relative z-0 transform-gpu isolate" 
+            data-header-theme="dark"
+        >
+            <div className="container mx-auto px-6 lg:px-8 relative z-10">
+                <div ref={contentRef} className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-20 mb-16">
 
                     {/* Brand Column */}
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-6 max-w-sm">
                         <h2 className="text-2xl font-display font-bold tracking-wider">MACASTER</h2>
-                        <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+                        <p className="text-white/60 text-sm leading-relaxed">
                             Transformando a cadeia de suprimentos da construção civil com tecnologia, economia e transparência.
                         </p>
                         <div className="flex gap-4">
@@ -53,76 +90,54 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Links Column */}
-                    <div>
-                        <h3 className="font-bold text-lg mb-6 text-white">Institucional</h3>
-                        <ul className="flex flex-col gap-3">
-                            {footerLinks.institucional.map((link) => (
-                                <li key={link.label}>
-                                    <a
-                                        href={link.href}
-                                        onClick={(e) => handleScroll(e, link.href)}
-                                        className="text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm cursor-pointer"
-                                    >
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {/* Right Side: Links & Contact */}
+                    <div className="flex flex-col sm:flex-row gap-12 lg:gap-24">
+                        {/* Links Column */}
+                        <div className="min-w-[140px]">
+                            <h3 className="font-bold text-lg mb-6 text-white">Institucional</h3>
+                            <ul className="flex flex-col gap-3">
+                                {footerLinks.institucional.map((link) => (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            onClick={(e) => handleScroll(e, link.href)}
+                                            className="text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm cursor-pointer"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    {/* Contact Column */}
-                    <div>
-                        <h3 className="font-bold text-lg mb-6 text-white">Fale Conosco</h3>
-                        <ul className="flex flex-col gap-4">
-                            {footerLinks.contato.map((item, i) => (
-                                <li key={i}>
-                                    <a
-                                        href={item.href}
-                                        className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group"
-                                    >
-                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/20 group-hover:text-white transition-colors">
-                                            <item.icon size={14} />
-                                        </div>
-                                        <span className="text-sm">{item.text}</span>
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Newsletter Column (Optional) */}
-                    <div className="flex flex-col gap-4">
-                        <h3 className="font-bold text-lg mb-2 text-white">Novidades</h3>
-                        <p className="text-white/60 text-sm">Receba notícias do mercado de construção.</p>
-                        <form
-                            className="flex flex-col gap-3 mt-2"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleScroll(e, '#contato');
-                            }}
-                        >
-                            <input
-                                type="email"
-                                placeholder="Seu e-mail"
-                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
-                                required
-                            />
-                            <button
-                                type="submit"
-                                className="group/btn relative overflow-hidden bg-white text-black font-bold text-sm py-3 rounded-lg border border-white mix-blend-screen transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:text-white hover:backdrop-blur-md"
-                            >
-                                {/* Shimmer on hover */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-12 group-hover/btn:animate-[shimmer_1.5s_infinite] z-0 pointer-events-none" />
-                                <span className="relative z-10">Inscrever-se</span>
-                            </button>
-                        </form>
+                        {/* Contact Column */}
+                        <div className="min-w-[280px]">
+                            <h3 className="font-bold text-lg mb-6 text-white">Fale Conosco</h3>
+                            <ul className="flex flex-col gap-4">
+                                {footerLinks.contato.map((item, i) => (
+                                    <li key={i}>
+                                        <a
+                                            href={item.href}
+                                            className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group"
+                                        >
+                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/20 group-hover:text-white transition-colors">
+                                                <item.icon size={14} />
+                                            </div>
+                                            <span className="text-sm">{item.text}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-                    <p>© {new Date().getFullYear()} Macaster. Todos os direitos reservados.</p>
+                    <div className="flex flex-col items-center md:items-start gap-1">
+                        <p>© {new Date().getFullYear()} Macaster. Todos os direitos reservados.</p>
+                        <p>CNPJ: 63.411.775/0001-70</p>
+                    </div>
                     <div className="flex gap-6">
                         <a
                             href="https://brusck.com"

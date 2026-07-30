@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/ui/hero-1";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
 import AboutUs from "@/components/landing/AboutUs";
-import Solutions from "@/components/landing/Solutions";
 import Methodology from "@/components/landing/Methodology";
 import Cases from "@/components/landing/Cases";
 import ContactCTA from "@/components/landing/ContactCTA";
@@ -17,7 +16,6 @@ export default function Home() {
                 <HeroSection />
                 <div className="relative z-10">
                     <AboutUs />
-                    <Solutions />
                     <Methodology />
                     <Cases />
                     <ContactCTA />
