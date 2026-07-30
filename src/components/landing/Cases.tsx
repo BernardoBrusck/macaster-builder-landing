@@ -14,6 +14,13 @@ const stats: Stat[] = [
 /* ─── Testimonials ─── */
 const testimonials: Testimonial[] = [
   {
+    name: "Hélio Leutz",
+    title: "Almoxarife",
+    quote: "Sempre atencioso, disposto a ajudar e resolver alguma pendência ou situação. Super recomendo.",
+    avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+    rating: 5.0,
+  },
+  {
     name: "Julia",
     title: "Construtora Medeli",
     quote: "Foi ótima experiência trabalhando contigo como fornecedor, o que mais chama atenção é a rapidez no atendimento.",
