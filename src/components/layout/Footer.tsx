@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const footerLinks = {
     institucional: [
+        { label: "Início", href: "#" },
         { label: "Sobre Nós", href: "#sobre" },
-        { label: "Soluções", href: "#solucoes" },
         { label: "Metodologia", href: "#metodologia" },
         { label: "Cases", href: "#cases" },
     ],
@@ -56,6 +56,10 @@ export default function Footer() {
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement> | React.FormEvent<HTMLFormElement>, href: string) => {
         e.preventDefault();
+        if (href === "#") {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
         const element = document.querySelector(href);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
