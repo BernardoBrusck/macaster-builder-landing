@@ -107,7 +107,7 @@ const StickyTestimonialCard = ({
                 {/* Author */}
                 <div className="flex items-center gap-4">
                     <div
-                        className="w-14 h-14 rounded-xl bg-cover bg-center flex-shrink-0 bg-gray-200"
+                        className="w-14 h-14 rounded-full bg-cover bg-center flex-shrink-0 bg-gray-200 overflow-hidden"
                         style={{ backgroundImage: `url(${testimonial.avatarSrc})` }}
                         aria-label={`Foto de ${testimonial.name}`}
                     />
