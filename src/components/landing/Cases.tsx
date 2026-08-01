@@ -6,7 +6,7 @@ import {
 
 /* ─── Stats ─── */
 const stats: Stat[] = [
-  { value: "R$ 10M+", label: "Em representação" },
+  { value: "R$ 10M+", label: "Gerados em negócios" },
   { value: "500+", label: "Clientes atendidos" },
   { value: "5+", label: "Anos de mercado" },
 ];

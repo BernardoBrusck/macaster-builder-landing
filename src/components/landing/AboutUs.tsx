@@ -90,7 +90,7 @@ function SpotlightCard({ icon: Icon, title, description }: { icon: any, title: s
 
 /* ─── Data ─── */
 const stats = [
-    { value: 10, suffix: "M+", prefix: "R$ ", label: "em representação de materiais" },
+    { value: 10, suffix: "M+", prefix: "R$ ", label: "gerados em negócios" },
     { value: 500, suffix: "+", prefix: "", label: "clientes atendidos" },
     { value: 100, suffix: "%", prefix: "", label: "foco em resultado" },
     { value: 5, suffix: "+", prefix: "", label: "anos de mercado" },
@@ -124,12 +124,12 @@ const pillars = [
 ];
 
 const productImages = [
-    { src: "/produtos/compensado-plastificado-formas.webp", alt: "Compensados para formas de concreto" },
-    { src: "/produtos/wood_beams_1780405855627.webp", alt: "Madeira para construção civil" },
-    { src: "/produtos/treated_eucalyptus_1780405868029.webp", alt: "Pinus" },
-    { src: "/produtos/hoarding_better_1780415767982.webp", alt: "Tapumes e palanques especiais" },
-    { src: "/produtos/estoque-compensados-madeira.webp", alt: "Compensados resinados e estruturais" },
-    { src: "/produtos/mortar_bags_1780405920116.webp", alt: "Impermeabilizantes e argamassas" },
+    { src: "/produtos/compensado-formas-concreto.webp", alt: "Compensados para formas de concreto" },
+    { src: "/produtos/madeira-construcao.webp", alt: "Madeira para construção civil" },
+    { src: "/produtos/pinus-tratado.webp", alt: "Pinus" },
+    { src: "/produtos/tapumes-palanques.webp", alt: "Tapumes e palanques especiais" },
+    { src: "/produtos/compensados-resinados.webp", alt: "Compensados resinados e estruturais" },
+    { src: "/produtos/impermeabilizantes-argamassas.webp", alt: "Impermeabilizantes e argamassas" },
 ];
 
 export default function AboutUs() {
@@ -318,10 +318,10 @@ export default function AboutUs() {
                                 é especialista em suprimentos para a construção civil. Atuamos como ponte entre construtoras, incorporadoras, engenheiros, arquitetos e os melhores fornecedores.
                             </p>
                             <p className="text-[0.9rem] leading-relaxed text-gray-600">
-                                Minha atuação vai além da venda: trabalho na identificação das necessidades reais de cada obra para entregar soluções que gerem resultado, evitando problemas comuns como retrabalho, atrasos de cronograma, desperdícios e compras inadequadas.
+                                Nossa atuação vai além da venda: trabalhamos na identificação das necessidades reais de cada obra para entregar soluções que gerem resultado, evitando problemas comuns como retrabalho, atrasos de cronograma, desperdícios e compras inadequadas.
                             </p>
                             <p className="text-[0.9rem] leading-relaxed text-gray-600">
-                                Acredito que o melhor fornecedor não é o que vende mais barato, mas o que entrega a solução certa para que a obra avance com segurança, eficiência e previsibilidade.
+                                Acreditamos que o melhor fornecedor não é o que vende mais barato, mas o que entrega a solução certa para que a obra avance com segurança, eficiência e previsibilidade.
                             </p>
                         </div>
                     </div>
