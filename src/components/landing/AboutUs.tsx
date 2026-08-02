@@ -337,6 +337,8 @@ export default function AboutUs() {
                             width={800}
                             height={600}
                             loading="lazy"
+                            decoding="async"
+                            sizes="(max-width: 768px) 100vw, 800px"
                             className="h-full w-full object-cover"
                         />
                         {/* Gradient overlay at bottom */}
@@ -379,6 +381,10 @@ export default function AboutUs() {
                                     <img 
                                         src={product.src} 
                                         alt={product.alt} 
+                                        width={600}
+                                        height={686}
+                                        sizes="(max-width: 768px) 280px, 320px"
+                                        decoding="async"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         loading="lazy"
                                     />

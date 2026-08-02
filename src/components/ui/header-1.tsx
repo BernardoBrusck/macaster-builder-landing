@@ -37,7 +37,7 @@ function useHeaderTheme() {
                     }
                 }
 
-                setIsLight(overLight);
+                setIsLight((prev) => (prev !== overLight ? overLight : prev));
                 ticking = false;
             });
         };

@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { HeroSection } from "@/components/ui/hero-1";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
-import AboutUs from "@/components/landing/AboutUs";
+const AboutUs = lazy(() => import("@/components/landing/AboutUs"));
 const Methodology = lazy(() => import("@/components/landing/Methodology"));
 const Cases = lazy(() => import("@/components/landing/Cases"));
 const ContactCTA = lazy(() => import("@/components/landing/ContactCTA"));
@@ -15,8 +15,8 @@ export default function Home() {
             <main className="grow">
                 <HeroSection />
                 <div className="relative z-10">
-                    <AboutUs />
                     <Suspense fallback={<div className="w-full min-h-[400px] bg-transparent" />}>
+                        <AboutUs />
                         <Methodology />
                         <Cases />
                         <ContactCTA />

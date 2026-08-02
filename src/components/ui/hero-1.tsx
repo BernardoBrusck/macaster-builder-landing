@@ -16,12 +16,20 @@ export function HeroSection() {
     const logosRef = useRef<HTMLDivElement>(null);
     const bordersRef = useRef<HTMLDivElement>(null);
 
+    const [isMobile, setIsMobile] = useState(false);
+
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.setAttribute("playsinline", "true");
-            videoRef.current.setAttribute("muted", "true");
-            videoRef.current.defaultMuted = true;
-            videoRef.current.muted = true;
+        const checkMobile = () => {
+            const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            setIsMobile(window.innerWidth < 1024 || touchDevice);
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    useEffect(() => {
+        if (videoRef.current && !isMobile) {
             const playPromise = videoRef.current.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
@@ -31,7 +39,7 @@ export function HeroSection() {
                 });
             }
         }
-    }, []);
+    }, [isMobile]);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -63,23 +71,23 @@ export function HeroSection() {
                 );
             }
 
-            // Title words animate in - Optimized for LCP performance
+            // Title words animate in - Optimized for LCP performance (no initial zero opacity required)
             if (titleRef.current) {
                 tl.fromTo(
                     titleRef.current,
-                    { opacity: 0, y: 30 },
-                    { opacity: 1, y: 0, duration: 0.6 },
+                    { y: 20 },
+                    { y: 0, duration: 0.6 },
                     0.1
                 );
             }
 
-            // Subtitle fades in
+            // Subtitle animate in
             if (subtitleRef.current) {
                 tl.fromTo(
                     subtitleRef.current,
-                    { opacity: 0, y: 30 },
-                    { opacity: 1, y: 0, duration: 1 },
-                    0.9
+                    { y: 20 },
+                    { y: 0, duration: 1 },
+                    0.4
                 );
             }
 
@@ -127,28 +135,35 @@ export function HeroSection() {
                 <img 
                     src="/produtos/hero_bg_1780353477901.webp" 
                     alt="Canteiro de obras background"
+                    width={1920}
+                    height={1080}
+                    decoding="async"
+                    loading="eager"
+                    fetchPriority="high"
                     className="absolute inset-0 w-full h-full object-cover opacity-35 select-none pointer-events-none"
                 />
                 
                 {/* Dark Overlay - always visible */}
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 
-                <video
-                    ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    onCanPlay={() => setVideoLoaded(true)}
-                    onLoadedData={() => setVideoLoaded(true)}
-                    className={cn(
-                        "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity] z-0",
-                        videoLoaded ? "opacity-100" : "opacity-0"
-                    )}
-                >
-                    <source src="/background-video-opt.mp4" type="video/mp4" />
-                </video>
+                {!isMobile && (
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="none"
+                        onCanPlay={() => setVideoLoaded(true)}
+                        onLoadedData={() => setVideoLoaded(true)}
+                        className={cn(
+                            "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity] z-0",
+                            videoLoaded ? "opacity-100" : "opacity-0"
+                        )}
+                    >
+                        <source src="/background-video-opt.mp4" type="video/mp4" />
+                    </video>
+                )}
             </div>
 
             {/* Content wrapper */}
@@ -183,7 +198,7 @@ export function HeroSection() {
                     {/* Title */}
                     <h1
                         ref={titleRef}
-                        className="text-balance text-center text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white opacity-0 sm:text-4xl md:text-5xl lg:text-[3.5rem]"
+                        className="text-balance text-center text-[2rem] font-bold leading-[1.1] tracking-[-0.03em] text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]"
                     >
                         Toda Grande Construção <br />
                         <span
@@ -197,7 +212,7 @@ export function HeroSection() {
                     {/* Subtitle */}
                     <p
                         ref={subtitleRef}
-                        className="mx-auto max-w-xl text-center text-xs sm:text-sm md:text-base leading-relaxed text-white/65 opacity-0 font-normal"
+                        className="mx-auto max-w-xl text-center text-xs sm:text-sm md:text-base leading-relaxed text-white/65 font-normal"
                     >
                         Soluções em suprimentos estratégicos para a construção civil. <br className="hidden sm:block" />
                         Conectando sua obra aos melhores fornecedores de concreto, madeiras e compensados.
