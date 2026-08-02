@@ -133,10 +133,9 @@ export default function ContactCTA() {
     return (
         <section
             ref={sectionRef}
-            className="w-full pt-16 pb-0 md:pt-20 md:pb-0 relative z-20 -mb-56"
+            className="w-full py-16 md:py-20 bg-white relative z-20"
             id="contato"
-            style={{ background: "linear-gradient(to bottom, white 50%, transparent 50%)" }}
-            data-header-theme="dark"
+            data-header-theme="light"
         >
 
             <div className="mx-auto max-w-6xl px-4 lg:px-8">
@@ -210,6 +209,7 @@ export default function ContactCTA() {
                                     <input
                                         type="text"
                                         name="name"
+                                        aria-label="Seu nome"
                                         placeholder="Seu nome"
                                         required
                                         className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm font-medium focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all duration-300"
@@ -222,6 +222,7 @@ export default function ContactCTA() {
                                     <input
                                         type="tel"
                                         name="phone"
+                                        aria-label="Seu WhatsApp"
                                         placeholder="WhatsApp (47) 99702-7016"
                                         required
                                         className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm font-medium focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all duration-300"
@@ -232,7 +233,7 @@ export default function ContactCTA() {
                                 <div className="relative">
                                     <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/50 pointer-events-none z-10" />
                                     <Select required name="type">
-                                        <SelectTrigger className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm font-medium focus:outline-none focus:ring-0 focus:border-white/50 focus:bg-white/15 transition-all duration-300">
+                                        <SelectTrigger aria-label="Selecione o tipo de obra" className="w-full h-10 pl-10 pr-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm font-medium focus:outline-none focus:ring-0 focus:border-white/50 focus:bg-white/15 transition-all duration-300">
                                             <SelectValue placeholder="Tipo de obra" />
                                         </SelectTrigger>
                                         <SelectContent className="bg-black/40 backdrop-blur-xl border-white/10 text-white rounded-[1.5rem] overflow-hidden p-1.5">

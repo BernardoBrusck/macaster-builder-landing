@@ -16,21 +16,26 @@ function useHeaderTheme() {
     React.useEffect(() => {
         let rafId = 0;
         let ticking = false;
+        // Cachear as seções no carregamento para evitar consulta constante ao DOM durante a rolagem (elimina travamentos e reflows forçados)
+        let lightSections = document.querySelectorAll('[data-header-theme="light"]');
 
         const handleScroll = () => {
             if (ticking) return;
             ticking = true;
             rafId = requestAnimationFrame(() => {
-                const lightSections = document.querySelectorAll('[data-header-theme="light"]');
-                const headerBottom = 48;
+                if (lightSections.length === 0) {
+                    lightSections = document.querySelectorAll('[data-header-theme="light"]');
+                }
+                const headerBottom = 50;
                 let overLight = false;
 
-                lightSections.forEach((section) => {
-                    const rect = section.getBoundingClientRect();
+                for (let i = 0; i < lightSections.length; i++) {
+                    const rect = lightSections[i].getBoundingClientRect();
                     if (rect.top < headerBottom && rect.bottom > 0) {
                         overLight = true;
+                        break;
                     }
-                });
+                }
 
                 setIsLight(overLight);
                 ticking = false;

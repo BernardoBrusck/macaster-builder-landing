@@ -1,35 +1,37 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export const SmoothScroll = () => {
     useEffect(() => {
+        // Em dispositivos móveis ou telas touch/menores, a rolagem nativa do sistema operacional (iOS/Android) 
+        // é 100x mais fluida e leve, evitando travamentos, lag e conflito de eventos de toque.
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (window.innerWidth < 1024 || isTouchDevice) {
+            return;
+        }
+
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
+            touchMultiplier: 2,
         });
 
-        lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-
-        gsap.ticker.lagSmoothing(0);
+        let rafId: number;
+        function raf(time: number) {
+            lenis.raf(time);
+            rafId = requestAnimationFrame(raf);
+        }
+        rafId = requestAnimationFrame(raf);
 
         return () => {
-            gsap.ticker.remove((time) => {
-                lenis.raf(time * 1000);
-            });
+            cancelAnimationFrame(rafId);
             lenis.destroy();
         };
     }, []);
 
     return null;
 };
+

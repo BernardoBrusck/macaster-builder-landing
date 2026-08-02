@@ -3,10 +3,10 @@ import { HeroSection } from "@/components/ui/hero-1";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
 import AboutUs from "@/components/landing/AboutUs";
-import Methodology from "@/components/landing/Methodology";
-import Cases from "@/components/landing/Cases";
-import ContactCTA from "@/components/landing/ContactCTA";
-import Footer from "@/components/layout/Footer";
+const Methodology = lazy(() => import("@/components/landing/Methodology"));
+const Cases = lazy(() => import("@/components/landing/Cases"));
+const ContactCTA = lazy(() => import("@/components/landing/ContactCTA"));
+const Footer = lazy(() => import("@/components/layout/Footer"));
 
 export default function Home() {
     return (
@@ -16,12 +16,17 @@ export default function Home() {
                 <HeroSection />
                 <div className="relative z-10">
                     <AboutUs />
-                    <Methodology />
-                    <Cases />
-                    <ContactCTA />
+                    <Suspense fallback={<div className="w-full min-h-[400px] bg-transparent" />}>
+                        <Methodology />
+                        <Cases />
+                        <ContactCTA />
+                    </Suspense>
                 </div>
             </main>
-            <Footer />
+            <Suspense fallback={<div className="w-full h-40 bg-[#0a0a0a]" />}>
+                <Footer />
+            </Suspense>
         </div>
     );
 }
+

@@ -35,10 +35,10 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
                                 logo.className || "h-8 md:h-10",
                                 logo.href ? "hover:scale-110" : ""
                             )}
-                            height={logo.height || "auto"}
+                            height={logo.height || 60}
                             loading="lazy"
                             src={logo.src}
-                            width={logo.width || "auto"}
+                            width={logo.width || 160}
                         />
                     ) : (
                         <span className="text-white/60 font-bold uppercase tracking-widest text-sm whitespace-nowrap opacity-70">

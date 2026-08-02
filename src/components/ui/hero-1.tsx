@@ -9,7 +9,6 @@ export function HeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [videoLoaded, setVideoLoaded] = useState(false);
-    const [isDesktop, setIsDesktop] = useState(false);
     const badgeRef = useRef<HTMLAnchorElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -18,16 +17,9 @@ export function HeroSection() {
     const bordersRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const checkIsDesktop = () => {
-            setIsDesktop(window.innerWidth >= 768);
-        };
-        checkIsDesktop();
-        window.addEventListener("resize", checkIsDesktop);
-        return () => window.removeEventListener("resize", checkIsDesktop);
-    }, []);
-
-    useEffect(() => {
-        if (isDesktop && videoRef.current) {
+        if (videoRef.current) {
+            videoRef.current.setAttribute("playsinline", "true");
+            videoRef.current.setAttribute("muted", "true");
             videoRef.current.defaultMuted = true;
             videoRef.current.muted = true;
             const playPromise = videoRef.current.play();
@@ -39,7 +31,7 @@ export function HeroSection() {
                 });
             }
         }
-    }, [isDesktop]);
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -141,24 +133,22 @@ export function HeroSection() {
                 {/* Dark Overlay - always visible */}
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 
-                {isDesktop && (
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="auto"
-                        onCanPlay={() => setVideoLoaded(true)}
-                        onLoadedData={() => setVideoLoaded(true)}
-                        className={cn(
-                            "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity] z-0",
-                            videoLoaded ? "opacity-100" : "opacity-0"
-                        )}
-                    >
-                        <source src="/background-video-opt.mp4" type="video/mp4" />
-                    </video>
-                )}
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    onCanPlay={() => setVideoLoaded(true)}
+                    onLoadedData={() => setVideoLoaded(true)}
+                    className={cn(
+                        "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 will-change-[opacity] z-0",
+                        videoLoaded ? "opacity-100" : "opacity-0"
+                    )}
+                >
+                    <source src="/background-video-opt.mp4" type="video/mp4" />
+                </video>
             </div>
 
             {/* Content wrapper */}
@@ -256,16 +246,16 @@ export function LogosSection() {
 }
 
 const logos = [
-    { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.webp", href: "#", className: "h-6 md:h-8" },
-    { alt: "Construtora Medeli", src: "/logos-parceiros/Medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9" },
-    { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.webp", href: "#", className: "h-8 md:h-10" },
-    { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.webp", href: "#", className: "h-8 md:h-10" },
-    { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.webp", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true },
-    { alt: "Vetter Empreendimentos", src: "/logos-parceiros/logo-vetter-footer.png", href: "https://vetter.com.br/", className: "h-10 md:h-12", disableFilter: true },
-    { alt: "Gart Empreendimentos", src: "/logos-parceiros/white-logo.webp", href: "#", className: "h-5 md:h-6" },
-    { alt: "Grupo Estrutura", src: "/logos-parceiros/grupo estrutura.svg", href: "https://grupoestrutura.com.br/", className: "h-4 md:h-5" },
-    { alt: "Torresani", src: "/logos-parceiros/torresani.webp", href: "https://torresani.com.br/", className: "h-10 md:h-12" },
-    { alt: "Trapp Ferreira", src: "/logos-parceiros/TRAPP FERREIRA.webp", href: "#", className: "h-10 md:h-12" },
-    { alt: "Copas Engenharia", src: "/logos-parceiros/copas-logo.svg", href: "#", className: "h-10 md:h-12" },
-    { alt: "Granada Construtora", src: "/logos-parceiros/logo-granada.webp", href: "https://granadaconstrutora.com.br/", className: "h-8 md:h-10 invert hue-rotate-180", disableFilter: true },
+    { alt: "Alicerce Empreendimentos", src: "/logos-parceiros/logo-intro.webp", href: "#", className: "h-6 md:h-8", width: 160, height: 60 },
+    { alt: "Construtora Medeli", src: "/logos-parceiros/Medeli.webp", href: "https://www.construtoramedeli.com.br/", className: "h-7 md:h-9", width: 160, height: 60 },
+    { alt: "Construtora Stein", src: "/logos-parceiros/logo-stein.webp", href: "#", className: "h-8 md:h-10", width: 160, height: 60 },
+    { alt: "Xpcon Empreendimentos", src: "/logos-parceiros/logo-xpcon-B6wVZoeV.webp", href: "#", className: "h-8 md:h-10", width: 160, height: 60 },
+    { alt: "Construtora Inovar", src: "/logos-parceiros/Inovar-Habitacional-Incorporacoes-Imob-Ltda.webp", href: "https://inovaric.com.br/", className: "h-5 md:h-6", disableFilter: true, width: 160, height: 60 },
+    { alt: "Vetter Empreendimentos", src: "/logos-parceiros/logo-vetter-footer.png", href: "https://vetter.com.br/", className: "h-10 md:h-12", disableFilter: true, width: 160, height: 60 },
+    { alt: "Gart Empreendimentos", src: "/logos-parceiros/white-logo.webp", href: "#", className: "h-5 md:h-6", width: 160, height: 60 },
+    { alt: "Grupo Estrutura", src: "/logos-parceiros/grupo estrutura.svg", href: "https://grupoestrutura.com.br/", className: "h-4 md:h-5", width: 160, height: 60 },
+    { alt: "Torresani", src: "/logos-parceiros/torresani.webp", href: "https://torresani.com.br/", className: "h-10 md:h-12", width: 160, height: 60 },
+    { alt: "Trapp Ferreira", src: "/logos-parceiros/TRAPP FERREIRA.webp", href: "#", className: "h-10 md:h-12", width: 160, height: 60 },
+    { alt: "Copas Engenharia", src: "/logos-parceiros/copas-logo.svg", href: "#", className: "h-10 md:h-12", width: 160, height: 60 },
+    { alt: "Granada Construtora", src: "/logos-parceiros/logo-granada.webp", href: "https://granadaconstrutora.com.br/", className: "h-8 md:h-10 invert hue-rotate-180", disableFilter: true, width: 160, height: 60 },
 ];

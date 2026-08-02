@@ -69,9 +69,11 @@ function animateCounter(el: HTMLElement, raw: string) {
 const StickyTestimonialCard = ({
     testimonial,
     index,
+    isDesktop = true,
 }: {
     testimonial: Testimonial;
     index: number;
+    isDesktop?: boolean;
 }) => {
     const cardRef = useRef<HTMLDivElement>(null);
 
@@ -99,17 +101,20 @@ const StickyTestimonialCard = ({
     return (
         <div
             ref={cardRef}
-            className="sticky w-full"
-            style={{ top: `${20 + index * 24}px` }}
+            className={isDesktop ? "sticky w-full" : "relative w-full"}
+            style={isDesktop ? { top: `${20 + index * 24}px` } : {}}
         >
             <div className="p-6 rounded-2xl shadow-2xl border border-white/10 bg-[#111111] flex flex-col h-auto w-full transition-shadow duration-300 hover:shadow-black/20"
                  style={{ background: "linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%)" }}>
                 {/* Author */}
                 <div className="flex items-center gap-4">
-                    <div
-                        className="w-14 h-14 rounded-full bg-cover bg-center flex-shrink-0 bg-gray-200 overflow-hidden"
-                        style={{ backgroundImage: `url(${testimonial.avatarSrc})` }}
-                        aria-label={`Foto de ${testimonial.name}`}
+                    <img
+                        src={testimonial.avatarSrc}
+                        alt={`Logo ou foto de ${testimonial.name}`}
+                        className="w-14 h-14 rounded-full object-cover flex-shrink-0 bg-gray-200 border border-white/10"
+                        width={56}
+                        height={56}
+                        loading="lazy"
                     />
                     <div className="flex-grow">
                         <p className="font-bold text-base text-white">
@@ -162,7 +167,18 @@ export const ClientsSection = ({
     className,
     id,
 }: ClientsSectionProps) => {
-    const scrollContainerHeight = `calc(100vh + ${testimonials.length * 100}px)`;
+    const [isDesktop, setIsDesktop] = React.useState(true);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 1024);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const scrollContainerHeight = isDesktop ? `calc(100vh + ${testimonials.length * 100}px)` : "auto";
     const statsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -269,14 +285,15 @@ export const ClientsSection = ({
                 {/* Right Column: Sticky card stack */}
                 <div
                     id="testimonial-cards"
-                    className="relative flex flex-col gap-4"
-                    style={{ height: scrollContainerHeight }}
+                    className={isDesktop ? "relative flex flex-col gap-4" : "relative flex flex-col gap-6"}
+                    style={isDesktop ? { height: scrollContainerHeight } : {}}
                 >
                     {testimonials.map((testimonial, index) => (
                         <StickyTestimonialCard
                             key={testimonial.name}
                             index={index}
                             testimonial={testimonial}
+                            isDesktop={isDesktop}
                         />
                     ))}
                 </div>

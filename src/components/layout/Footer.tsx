@@ -18,9 +18,9 @@ const footerLinks = {
         { icon: MapPin, text: "Joinville, SC", href: "https://www.google.com/maps/search/?api=1&query=Joinville,+SC" },
     ],
     social: [
-        { icon: Instagram, href: "https://instagram.com/macastergroup" },
-        { icon: Linkedin, href: "#" },
-        { icon: Facebook, href: "#" },
+        { icon: Instagram, href: "https://instagram.com/macastergroup", label: "Instagram da Macaster" },
+        { icon: Linkedin, href: "#", label: "LinkedIn da Macaster" },
+        { icon: Facebook, href: "#", label: "Facebook da Macaster" },
     ],
 };
 
@@ -69,7 +69,7 @@ export default function Footer() {
     return (
         <footer 
             ref={footerRef}
-            className="text-white pt-80 pb-8 border-t border-white/10 relative z-0 transform-gpu isolate" 
+            className="text-white pt-16 md:pt-20 pb-8 border-t border-white/10 relative z-0 transform-gpu isolate bg-[#0a0a0a]" 
             data-header-theme="dark"
         >
             <div className="container mx-auto px-6 lg:px-8 relative z-10">
@@ -78,7 +78,7 @@ export default function Footer() {
                     {/* Brand Column */}
                     <div className="flex flex-col gap-6 max-w-sm">
                         <h2 className="text-2xl font-display font-bold tracking-wider">MACASTER</h2>
-                        <p className="text-white/60 text-sm leading-relaxed">
+                        <p className="text-white/80 text-sm leading-relaxed">
                             Transformando a cadeia de suprimentos da construção civil com tecnologia, economia e transparência.
                         </p>
                         <div className="flex gap-4">
@@ -86,7 +86,8 @@ export default function Footer() {
                                 <a
                                     key={i}
                                     href={social.href}
-                                    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-white hover:text-black transition-all duration-300"
+                                    aria-label={social.label}
+                                    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/80 hover:bg-white hover:text-black transition-all duration-300"
                                 >
                                     <social.icon size={18} />
                                 </a>
@@ -105,7 +106,7 @@ export default function Footer() {
                                         <a
                                             href={link.href}
                                             onClick={(e) => handleScroll(e, link.href)}
-                                            className="text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm cursor-pointer"
+                                            className="text-white/80 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm cursor-pointer"
                                         >
                                             {link.label}
                                         </a>
@@ -122,7 +123,7 @@ export default function Footer() {
                                     <li key={i}>
                                         <a
                                             href={item.href}
-                                            className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group"
+                                            className="flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
                                         >
                                             <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/20 group-hover:text-white transition-colors">
                                                 <item.icon size={14} />
@@ -137,7 +138,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
+                <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/70">
                     <div className="flex flex-col items-center md:items-start gap-1">
                         <p>© {new Date().getFullYear()} Macaster. Todos os direitos reservados.</p>
                         <p>CNPJ: 63.411.775/0001-70</p>
