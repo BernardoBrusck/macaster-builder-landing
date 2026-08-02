@@ -16,14 +16,19 @@ export function HeroSection() {
     const logosRef = useRef<HTMLDivElement>(null);
     const bordersRef = useRef<HTMLDivElement>(null);
 
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(() => {
+        if (typeof window !== "undefined") {
+            const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return window.innerWidth < 1024 || touchDevice;
+        }
+        return false;
+    });
 
     useEffect(() => {
         const checkMobile = () => {
             const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             setIsMobile(window.innerWidth < 1024 || touchDevice);
         };
-        checkMobile();
         window.addEventListener("resize", checkMobile);
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
@@ -42,77 +47,83 @@ export function HeroSection() {
     }, [isMobile]);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Timeline for staggered entrance
-            const tl = gsap.timeline({
-                defaults: {
-                    ease: "power4.out",
-                    duration: 1.2,
-                },
-            });
+        let ctx: gsap.Context | undefined;
+        const rafId = requestAnimationFrame(() => {
+            ctx = gsap.context(() => {
+                // Timeline for staggered entrance
+                const tl = gsap.timeline({
+                    defaults: {
+                        ease: "power4.out",
+                        duration: 1.2,
+                    },
+                });
 
-            // Decorative borders fade in
-            if (bordersRef.current) {
-                tl.fromTo(
-                    bordersRef.current.children,
-                    { opacity: 0, scaleY: 0 },
-                    { opacity: 1, scaleY: 1, duration: 1.5, stagger: 0.05, transformOrigin: "top" },
-                    0
-                );
-            }
+                // Decorative borders fade in
+                if (bordersRef.current) {
+                    tl.fromTo(
+                        bordersRef.current.children,
+                        { opacity: 0, scaleY: 0 },
+                        { opacity: 1, scaleY: 1, duration: 1.5, stagger: 0.05, transformOrigin: "top" },
+                        0
+                    );
+                }
 
-            // Badge slides in with blur
-            if (badgeRef.current) {
-                tl.fromTo(
-                    badgeRef.current,
-                    { opacity: 0, y: 30, filter: "blur(10px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
-                    0.3
-                );
-            }
+                // Badge slides in with blur
+                if (badgeRef.current) {
+                    tl.fromTo(
+                        badgeRef.current,
+                        { opacity: 0, y: 30, filter: "blur(10px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+                        0.3
+                    );
+                }
 
-            // Title words animate in - Optimized for LCP performance (no initial zero opacity required)
-            if (titleRef.current) {
-                tl.fromTo(
-                    titleRef.current,
-                    { y: 20 },
-                    { y: 0, duration: 0.6 },
-                    0.1
-                );
-            }
+                // Title words animate in - Optimized for LCP performance (no initial zero opacity required)
+                if (titleRef.current) {
+                    tl.fromTo(
+                        titleRef.current,
+                        { y: 20 },
+                        { y: 0, duration: 0.6 },
+                        0.1
+                    );
+                }
 
-            // Subtitle animate in
-            if (subtitleRef.current) {
-                tl.fromTo(
-                    subtitleRef.current,
-                    { y: 20 },
-                    { y: 0, duration: 1 },
-                    0.4
-                );
-            }
+                // Subtitle animate in
+                if (subtitleRef.current) {
+                    tl.fromTo(
+                        subtitleRef.current,
+                        { y: 20 },
+                        { y: 0, duration: 1 },
+                        0.4
+                    );
+                }
 
-            // Buttons slide up with stagger - Faster entrance
-            if (buttonsRef.current) {
-                tl.fromTo(
-                    buttonsRef.current.children,
-                    { opacity: 0, y: 40, scale: 0.9 },
-                    { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.4)" },
-                    0.4
-                );
-            }
+                // Buttons slide up with stagger - Faster entrance
+                if (buttonsRef.current) {
+                    tl.fromTo(
+                        buttonsRef.current.children,
+                        { opacity: 0, y: 40, scale: 0.9 },
+                        { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.4)" },
+                        0.4
+                    );
+                }
 
-            // Logos section fades in
-            if (logosRef.current) {
-                tl.fromTo(
-                    logosRef.current,
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 0.8 },
-                    0.7
-                );
-            }
-        }, sectionRef);
+                // Logos section fades in
+                if (logosRef.current) {
+                    tl.fromTo(
+                        logosRef.current,
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.8 },
+                        0.7
+                    );
+                }
+            }, sectionRef);
+        });
 
-        return () => ctx.revert();
+        return () => {
+            cancelAnimationFrame(rafId);
+            ctx?.revert();
+        };
     }, []);
 
 

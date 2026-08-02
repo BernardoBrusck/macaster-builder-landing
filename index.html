@@ -72,10 +72,16 @@
       }
     </script>
 
-    <!-- Preconnect & Fonts (non-blocking) -->
+    <!-- Preconnect & Fonts (async non-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" /></noscript>
+
+    <!-- Critical Inline Styling for instantaneous First Contentful Paint (FCP) -->
+    <style>
+      body { background-color: #0a0a0a; color: #f9f9f9; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+    </style>
 </head>
 
   <body>
